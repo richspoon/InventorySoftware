@@ -1,0 +1,10 @@
+<name>Inventory Scan</name>
+<summary>Inventory Scan</summary>
+<title>Inventory Scan</title>
+<description>Inventory Scan</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>

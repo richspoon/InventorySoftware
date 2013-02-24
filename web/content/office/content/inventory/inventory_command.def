@@ -1,0 +1,10 @@
+<name>Inventory Command</name>
+<summary>Inventory Command</summary>
+<title>Inventory Command</title>
+<description>Inventory Command</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<template>template_inventory.html</template>

@@ -1,0 +1,10 @@
+<name>Inventory Hold</name>
+<summary>Inventory Hold</summary>
+<title>Inventory Hold</title>
+<description>Inventory Hold</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<template>template_inventory.html</template>

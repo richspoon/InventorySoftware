@@ -1,0 +1,10 @@
+<name>Vendor RMA</name>
+<summary>Vendor RMA</summary>
+<title>Vendor RMA</title>
+<description>Vendor RMA</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>

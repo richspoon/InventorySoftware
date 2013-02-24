@@ -1,0 +1,10 @@
+<name>Inventory Products</name>
+<summary>Inventory Products</summary>
+<title>Inventory Products</title>
+<description>Inventory Products</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<_template>template_inventory.html</template>

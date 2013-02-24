@@ -1,0 +1,10 @@
+<name>Inventory Assembly</name>
+<summary>Inventory Assembly</summary>
+<title>Inventory Assembly</title>
+<description>Inventory Assembly</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>

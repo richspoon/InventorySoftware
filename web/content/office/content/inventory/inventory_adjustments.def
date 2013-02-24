@@ -1,0 +1,10 @@
+<name>Inventory Adjustment</name>
+<summary>Inventory Adjustment</summary>
+<title>Inventory Adjustment</title>
+<description>Inventory Adjustment</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>
