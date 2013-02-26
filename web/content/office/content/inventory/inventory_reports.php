@@ -6,47 +6,58 @@ $DIALOGID = Get('DIALOGID');
 $link = "/office/inventory/inventory_reports;DIALOGID={$DIALOGID}";
 
 $OBJ_MENU = new Inventory_DropdownMenu();
-$OBJ_MENU->Menu_Raw = array(
+$OBJ_MENU->Menu_Multi = array();
+
+
+$OBJ_MENU->Menu_Multi['General'] = array(
     array(  'link'  => "{$link};t=1",
             'title' => "Sales Order Inventory Available", ),
     array(  'link'  => "{$link};t=3",
             'title' => "Sales Order COGS", ),
     array(  'link'  => "{$link};t=2",
             'title' => "Barcode Current FIFO Value", ),
-    array(  'link'  => "{$link};t=4",
-            'title' => "SCRIPT - fix inventory counts", ),
-    array(  'link'  => "{$link};t=5",
-            'title' => "SCRIPT - fix $0 inventory adjustments", ),
-    array(  'link'  => "{$link};t=8",
-            'title' => "SCRIPT - fix no date inventory counts", ),
-    array(  'link'  => "{$link};t=10",
-            'title' => "SCRIPT - fix inventory adjustments price", ),
-    array(  'link'  => "{$link};t=11",
-            'title' => "SCRIPT - fix date mis-match in inventory_counts", ),
-    array(  'link'  => "{$link};t=12",
-            'title' => "SCRIPT - fix inventory build records without build record", ),
-    array(  'link'  => "{$link};t=13",
-            'title' => "SCRIPT - inventory adjustments - convert to average valuation", ),
     array(  'link'  => "{$link};t=6",
             'title' => "MANUFACTURING RESOURCE PLANNING", ),
     array(  'link'  => "{$link};t=7",
             'title' => "Inventory Value Report", ),
     array(  'link'  => "{$link};t=9",
             'title' => "Database Integrity Checks", ),
-    array(  'link'  => "{$link};t=99",
-            'title' => "TEST Inventory_InventoryAssemblyCalculateValue", ),
-    array(  'link'  => "{$link};t=100",
-            'title' => "TEST Inventory_COGSAdjustment", ),
-    array(  'link'  => "{$link};t=101",
-            'title' => "TEST Inventory_COGSHandler", ),
-    array(  'link'  => "{$link};t=200",
-            'title' => "TEST Inventory_EOQ", ),
-            
-            
-    
 );
+
+
+$OBJ_MENU->Menu_Multi['Fix'] = array(
+    array(  'link'  => "{$link};t=13",
+            'title' => "SCRIPT - inventory adjustments - convert to average valuation", ),
+    array(  'link'  => "{$link};t=4",
+            'title' => "fix inventory counts", ),
+    array(  'link'  => "{$link};t=5",
+            'title' => "fix $0 inventory adjustments", ),
+    array(  'link'  => "{$link};t=8",
+            'title' => "fix no date inventory counts", ),
+    array(  'link'  => "{$link};t=10",
+            'title' => "fix inventory adjustments price", ),
+    array(  'link'  => "{$link};t=11",
+            'title' => "fix date mis-match in inventory_counts", ),
+    array(  'link'  => "{$link};t=12",
+            'title' => "fix inventory build records without build record", ),
+);
+
+$OBJ_MENU->Menu_Multi['Test'] = array(
+    array(  'link'  => "{$link};t=301",
+            'title' => "Inventory_InventoryAssemblyCalculateValue", ),
+    array(  'link'  => "{$link};t=302",
+            'title' => "Inventory_Valuation_Adjustment", ),
+    array(  'link'  => "{$link};t=303",
+            'title' => "Inventory_Valuation_Handler", ),
+    array(  'link'  => "{$link};t=304",
+            'title' => "Inventory_EconomicOrderQuantity", ),
+    array(  'link'  => "{$link};t=305",
+            'title' => "Inventory_Valuation_SingleItemCostCalculation", ),
+);
+
+
 echo $OBJ_MENU->Execute();
-echo "<div style='min-width:300px;'>&nbsp;</div>";
+echo "<div style='min-width:600px; min-height:300px;'>";
 
 
 switch(Get('t')) {
@@ -140,28 +151,24 @@ switch(Get('t')) {
     break;
     
     
-    case '99':
+    
+    # ===================================================================
+    # ========  TEST MENU  ========
+    # ===================================================================
+    
+    
+    case '301':
         echo "<h1>TEST OF Inventory_InventoryAssemblyCalculateValue - URL NEEDS ;id=133;barcode=10053</h1>";
         echo "<br />Class :: Inventory_InventoryAssemblyCalculateValue()<br />";
         $OBJ            = new Inventory_InventoryAssemblyCalculateValue();
         $OBJ->Barcode   = Get('barcode');
         $OBJ->Execute();
-        
-        
-        
-        /*
-        $inventory_assembly_build_id = Get('id');
-        $return_arr = $OBJ->Execute($inventory_assembly_build_id);
-        
-        echo "<hr><div style='background-color:red'>==========================================================</div><hr>";
-        echo ArrayToStr($return_arr);
-        */
     break;
     
-    case '100':
-        echo "<h1>TEST OF Inventory_COGSAdjustment - URL NEEDS ;id=XXX</h1>";
-        echo "<br />Class :: Inventory_COGSAdjustment()<br />";
-        $OBJ = new Inventory_COGSAdjustment();
+    case '302':
+        echo "<h1>TEST OF Inventory_Valuation_Adjustment - URL NEEDS ;id=XXX</h1>";
+        echo "<br />Class :: Inventory_Valuation_Adjustment()<br />";
+        $OBJ = new Inventory_Valuation_Adjustment();
         $OBJ->Inventory_Adjustments_ID = Get('id');
         $OBJ->Quantity = 1;
         $OBJ->Execute();
@@ -172,10 +179,10 @@ switch(Get('t')) {
         $OBJ->EchoVar('COGS_Array', $OBJ->COGS_Array);
     break;
     
-    case '101':
-        echo "<h1>TEST OF Inventory_COGSHandler - URL NEEDS ;id=XXX</h1>";
-        echo "<br />Class :: Inventory_COGSHandler()<br />";
-        $OBJ = new Inventory_COGSHandler();
+    case '303':
+        echo "<h1>TEST OF Inventory_Valuation_Handler - URL NEEDS ;id=XXX</h1>";
+        echo "<br />Class :: Inventory_Valuation_Handler()<br />";
+        $OBJ = new Inventory_Valuation_Handler();
         $OBJ->Inventory_Counts_ID = Get('id');
         $OBJ->Quantity = 1;
         $OBJ->Execute();
@@ -186,10 +193,10 @@ switch(Get('t')) {
         $OBJ->EchoVar('COGS_Array', $OBJ->COGS_Array);
     break;
     
-    case '200':
-        echo "<h1>TEST OF Inventory_EOQ - URL NEEDS ;id=XXX</h1>";
-        echo "<br />Class :: Inventory_EOQ()<br />";
-        $OBJ = new Inventory_EOQ();
+    case '304':
+        echo "<h1>TEST OF Inventory_EconomicOrderQuantity - URL NEEDS ;id=XXX</h1>";
+        echo "<br />Class :: Inventory_EconomicOrderQuantity()<br />";
+        $OBJ = new Inventory_EconomicOrderQuantity();
         
         $OBJ->Demand_Rate_Annual          = 0;
         $OBJ->Order_Cost                  = 0;
@@ -202,7 +209,24 @@ switch(Get('t')) {
         $OBJ->Execute();
     break;
     
+    case '305':
+        echo "<h1>TEST OF Inventory_Valuation_SingleItemCostCalculation - URL NEEDS ;barcode=XXX   OPTIONAL => ;date=yyyy-mm-dd;method=xxx</h1>";
+        echo "<br />Class :: Inventory_Valuation_SingleItemCostCalculation<br />";
+        $OBJ = new Inventory_Valuation_SingleItemCostCalculation();
+        
+        $OBJ->Pseudocode();                     // echo out the pseudocode for this class
+        
+        $OBJ->Barcode = Get('barcode');
+        $OBJ->Execute();
+        
+        $OBJ->Test_ShowOutputs();
+        $OBJ->DumpNotices();
+        $OBJ->DumpErrors();
+        
+    break;
+    
 }
 
+echo "</div>";
 
 ?>
