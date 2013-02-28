@@ -158,9 +158,9 @@ switch(Get('t')) {
     
     
     case '301':
-        echo "<h1>TEST OF Inventory_InventoryAssemblyCalculateValue - URL NEEDS ;id=133;barcode=10053</h1>";
-        echo "<br />Class :: Inventory_InventoryAssemblyCalculateValue()<br />";
-        $OBJ            = new Inventory_InventoryAssemblyCalculateValue();
+        echo "<h1>TEST OF Inventory_Valuation_InventoryAssemblyCalculateValue - URL NEEDS ;id=133;barcode=10053</h1>";
+        echo "<br />Class :: Inventory_Valuation_InventoryAssemblyCalculateValue()<br />";
+        $OBJ            = new Inventory_Valuation_InventoryAssemblyCalculateValue();
         $OBJ->Barcode   = Get('barcode');
         $OBJ->Execute();
     break;
