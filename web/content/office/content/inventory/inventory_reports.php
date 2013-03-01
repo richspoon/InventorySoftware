@@ -44,7 +44,7 @@ $OBJ_MENU->Menu_Multi['Fix'] = array(
 
 $OBJ_MENU->Menu_Multi['Test'] = array(
     array(  'link'  => "{$link};t=301",
-            'title' => "Inventory_InventoryAssemblyCalculateValue", ),
+            'title' => "Inventory_Valuation_InventoryAssemblyCalculateValue", ),
     array(  'link'  => "{$link};t=302",
             'title' => "Inventory_Valuation_Adjustment", ),
     array(  'link'  => "{$link};t=303",
@@ -53,6 +53,8 @@ $OBJ_MENU->Menu_Multi['Test'] = array(
             'title' => "Inventory_EconomicOrderQuantity", ),
     array(  'link'  => "{$link};t=305",
             'title' => "Inventory_Valuation_SingleItemCostCalculation", ),
+    array(  'link'  => "{$link};t=306",
+            'title' => "Inventory_Valuation_ValueAdjustment", ),
 );
 
 
@@ -224,6 +226,36 @@ switch(Get('t')) {
         $OBJ->DumpErrors();
         
     break;
+    
+    case '306':
+        echo "<h1>TEST OF Inventory_Valuation_ValueAdjustment - URL NEEDS ;aid=xxxx (168) </h1>";
+        echo "<br />Class :: Inventory_Valuation_ValueAdjustment<br />";
+        $OBJ = new Inventory_Valuation_ValueAdjustment();
+        
+        #$OBJ->Pseudocode();                     // echo out the pseudocode for this class
+        
+        $OBJ->Inventory_Adjustments_ID = Get('aid');
+        $OBJ->Execute();
+        
+        $OBJ->EchoVar('Value_Total', $OBJ->Value_Total);
+        $OBJ->EchoVar('Value_Each', $OBJ->Value_Each);
+        #$OBJ->EchoVar('Value_Array', $OBJ->Value_Array);
+        
+        
+        $Obj_Report                 = new Inventory_Valuation_ValueSummaryReport();         // instantiate value report
+        $Obj_Report->Value_Array    = $OBJ->Value_Array;                                    // pass in array to turn into report
+        $report                     = $Obj_Report->Execute();                               // create the report
+        echo $report;                                                                       // echo out the report
+        
+        
+        #$OBJ->Test_ShowOutputs();
+        $OBJ->DumpNotices();
+        $OBJ->DumpErrors();
+        
+    break;
+    
+    
+    
     
 }
 
