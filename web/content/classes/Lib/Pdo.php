@@ -25,7 +25,7 @@ class Lib_Pdo
 
     public $Database_Type  = '';
 
-
+public $Calling_Classname = '';
 
     public function  __construct($type= '', $connection_info = '')
     {
@@ -169,7 +169,7 @@ MTL;
                 $error = preg_replace('/syntax to use near ((.|\n)+) at line /', "$span_start$1$span_end", $error);
                 $error = "<br /><div style=\"border:1px solid #f00; background-color:#f66;color:#000;padding:3px;\">$error</div>";
                 if (function_exists('AddError')) {
-                    AddError('Database Error - ' . $function);
+                    AddError('Database Error - ' . $this->Calling_Classname . ' - ' . $function);
                 }
             }
 
