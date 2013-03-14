@@ -40,6 +40,12 @@ $OBJ_MENU->Menu_Multi['Fix'] = array(
             'title' => "fix date mis-match in inventory_counts", ),
     array(  'link'  => "{$link};t=12",
             'title' => "fix inventory build records without build record", ),
+    array(  'link'  => "{$link};t=208",
+            'title' => "fix POs - map to ID", ),
+    array(  'link'  => "{$link};t=209",
+            'title' => "fix POs - wrongly deactivated records", ),
+	array(  'link'  => "{$link};t=210",
+            'title' => "fix SOs - map to ID", ),
 );
 
 $OBJ_MENU->Menu_Multi['Test'] = array(
@@ -82,20 +88,6 @@ switch(Get('t')) {
         $OBJ->Execute();
     break;
     
-    case '4':
-        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
-        echo "<br />Class :: Inventory_FixOriginalScan()<br />";
-        $OBJ = new Inventory_FixOriginalScan();
-        $OBJ->Execute();
-    break;
-    
-    case '5':
-        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
-        echo "<br />Class :: Inventory_FixZeroDollarInventoryAdjustment()<br />";
-        $OBJ = new Inventory_FixZeroDollarInventoryAdjustment();
-        $OBJ->Execute();
-    break;
-    
     case '6':
         echo "<h1>MANUFACTURING RESOURCE PLANNING</h1>";
         echo "<br />Class :: Inventory_ManufacturingResourcePlanning()<br />";
@@ -113,7 +105,7 @@ switch(Get('t')) {
     case '8':
         echo "<h1>SCRIPT TO FIX ERRORS</h1>";
         echo "<br />Class :: Inventory_FixInventoryCountsNoDate()<br />";
-        $OBJ = new Inventory_FixInventoryCountsNoDate();
+        $OBJ = new Inventory_Fix_InventoryCountsNoDate();
         $OBJ->Execute();
     break;
     
@@ -124,33 +116,80 @@ switch(Get('t')) {
         $OBJ->Execute();
     break;
     
+    
+    
+    
+    
+    # ===================================================================
+    # ========  FIX MENU  ========
+    # ===================================================================
+    
     case '10':
         echo "<h1>FIX :: INVENTORY ADJUSTMENT - ASSEMBLY PRICE</h1>";
         echo "<br />Class :: Inventory_FixInventoryAdjustmentAssemblyPrice()<br />";
-        $OBJ = new Inventory_FixInventoryAdjustmentAssemblyPrice();
+        $OBJ = new Inventory_Fix_InventoryAdjustmentAssemblyPrice();
         $OBJ->Execute();
     break;
     
     case '11':
         echo "<h1>FIX :: INVENTORY COUNT - MIS-MATCHED DATE</h1>";
         echo "<br />Class :: Inventory_FixInventoryDateMismatch()<br />";
-        $OBJ = new Inventory_FixInventoryDateMismatch();
+        $OBJ = new Inventory_Fix_InventoryDateMismatch();
         $OBJ->Execute();
     break;
     
     case '12':
         echo "<h1>FIX :: INVENTORY BUILD RECORD - NO BUILD RECORD FOUND</h1>";
         echo "<br />Class :: Inventory_FixAssemblyNoBuildRecord()<br />";
-        $OBJ = new Inventory_FixAssemblyNoBuildRecord();
+        $OBJ = new Inventory_Fix_AssemblyNoBuildRecord();
         $OBJ->Execute();
     break;
     
     case '13':
         echo "<h1>FIX :: INVENTORY ADJUSTMENT - AVERAGE VALUE METHOD</h1>";
         echo "<br />Class :: Inventory_FixInventoryAdjustmentValue()<br />";
-        $OBJ = new Inventory_FixInventoryAdjustmentValue();
+        $OBJ = new Inventory_Fix_InventoryAdjustmentValue();
         $OBJ->Execute();
     break;
+    
+    case '4':
+        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
+        echo "<br />Class :: Inventory_FixOriginalScan()<br />";
+        $OBJ = new Inventory_Fix_OriginalScan();
+        $OBJ->Execute();
+    break;
+    
+    case '5':
+        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
+        echo "<br />Class :: Inventory_FixZeroDollarInventoryAdjustment()<br />";
+        $OBJ = new Inventory_Fix_ZeroDollarInventoryAdjustment();
+        $OBJ->Execute();
+    break;
+    
+    case '208':
+        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
+        echo "<br />Class :: Inventory_Fix_PONumberToId()<br />";
+        $OBJ = new Inventory_Fix_PONumberToId();
+        $OBJ->Execute();
+    break;
+    
+    case '209':
+        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
+        echo "<br />Class :: Inventory_Fix_PODeactivatedLinesAcivate()<br />";
+        $OBJ = new Inventory_Fix_PODeactivatedLinesAcivate();
+        $OBJ->Execute();
+    break;
+	
+	case '210':
+        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
+        echo "<br />Class :: Inventory_Fix_SONumberToId()<br />";
+        $OBJ = new Inventory_Fix_SONumberToId();
+        $OBJ->Execute();
+    break;
+    
+    
+    
+    
     
     
     
