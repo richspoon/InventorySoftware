@@ -11,6 +11,10 @@ $OBJ_MENU->Menu_Raw = array(
             'title' => "Edit Production Board", ),
     array(  'link'  => "{$link};t=2",
             'title' => "View Production Board", ),
+    array(  'link'  => "{$link};t=3",
+            'title' => "Whitesheets", ),
+    array(  'link'  => "{$link};t=4",
+            'title' => "Notes", ),
 );
 echo $OBJ_MENU->Execute();
 echo "<div style='min-width:300px; min-height:300px;'>&nbsp;";
@@ -22,6 +26,20 @@ switch(Get('t')) {
         echo "<div style='font-size:16px; font-weight:bold;'>Edit Production Board</div>";
         echo "<div>Class :: Inventory_ReportSalesOrderInventoryAvailable()</div><br /><br />";
         $OBJ = new Inventory_ProductionBoard();
+        $OBJ->Execute();
+    break;
+    
+    case '3':
+        echo "<div style='font-size:16px; font-weight:bold;'>Whitesheets</div>";
+        echo "<div>Class :: Inventory_ProductionWhitesheet()</div><br /><br />";
+        $OBJ = new Inventory_ProductionWhitesheet();
+        $OBJ->Execute();
+    break;
+    
+    case '4':
+        echo "<div style='font-size:16px; font-weight:bold;'>Notes</div>";
+        echo "<div>Class :: Inventory_ProductionBoardNotes()</div><br /><br />";
+        $OBJ = new Inventory_ProductionBoardNotes();
         $OBJ->Execute();
     break;
     
