@@ -5,27 +5,25 @@
 class Lib_Pdo
 {
     public $Pdo;
-    public $Db_Query = '';
-    public $Db_Want_Query = true;
-    public $Db_Max_Db_Query_Length = 1000000;
-    public $Db_Start_Time = 0;
-    public $Db_Show_Trace = false;
-    public $Db_Last_Query  = '';
+    public $Db_Query                        = '';
+    public $Db_Want_Query                   = true;
+    public $Db_Max_Db_Query_Length          = 1000000;
+    public $Db_Start_Time                   = 0;
+    public $Db_Show_Trace                   = false;
+    public $Db_Last_Query                   = '';
 
-    public $Db_Query_Table_Options  = 'align="center" style="background-color:#888; border:1px solid #000; margin-top:10px;"';
-    public $Db_Query_Table_Options_Th = 'style="text-align:center; background-color:#aaa; color:#fff;"';
-    public $Db_Query_Table_Options_Td = 'style="text-align:left; background-color:#ff7; color:#000; font-size:0.8em; padding:1em 1em 0px 0px;"';
+    public $Db_Query_Table_Options          = 'align="center" style="background-color:#888; border:1px solid #000; margin-top:10px;"';
+    public $Db_Query_Table_Options_Th       = 'style="text-align:center; background-color:#aaa; color:#fff;"';
+    public $Db_Query_Table_Options_Td       = 'style="text-align:left; background-color:#ff7; color:#000; font-size:0.8em; padding:1em 1em 0px 0px;"';
 
-    public $Last_Insert_Id = 0;
-    public $Affected_Rows  = 0;
-    public $Number_Rows    = 0;
-    public $Field_Values      = '';
+    public $Last_Insert_Id                  = 0;
+    public $Affected_Rows                   = 0;
+    public $Number_Rows                     = 0;
+    public $Field_Values                    = '';
 
-    public $Error = '';
-
-    public $Database_Type  = '';
-
-public $Calling_Classname = '';
+    public $Error                           = '';
+    public $Database_Type                   = '';
+    public $Calling_Classname               = '';
 
     public function  __construct($type= '', $connection_info = '')
     {
@@ -76,6 +74,7 @@ MTL;
         if ($DB_INFO) {
             $connection_string = "mysql:host={$DB_INFO['HOST']};dbname={$DB_INFO['NAME']}";
             $this->Connect($connection_string, $DB_INFO['USER'], $DB_INFO['PASS']);
+            //$this->Pdo->setAttribute(PDO::ATTR_DB_NAME, "{$DB_INFO['NAME']}");
         }
     }
 
@@ -271,7 +270,7 @@ MTL;
         $this->SetDbQuery($function, $query);
         return $RESULT;
     }
-
+    
 
     public function CreateSqLiteTable($table, $varlist)
     {
@@ -1103,6 +1102,8 @@ MTL;
         NatCaseSort($RESULT);
         return $RESULT;
     }
+    
+    
 
     public function TableExists($table)
     {
@@ -1282,6 +1283,51 @@ MTL;
         $this->Pdo = null;
     }
 
+    
+    public function EchoQuery($CLASSNAME='', $FUNCTIONNAME='', $FORCE_ON=false)
+    {
+        if ($this->Db_Want_Query || $FORCE_ON || Session('WANT_DB_QUERIES')) 
+        { 
+            //$server_info = $this->Pdo->getAttribute(constant("PDO::ATTR_DB_NAME"));
+            
+            $last_query     = $this->Db_Last_Query;
+            $server_info    = $this->GetDatabase();
+            
+            
+            echo "
+            <br />
+            <div style='border:1px solid #ddd;'>
+                <div style='padding:5px; background-color:#e3e3e3;'>
+                    <div style='float:left;'><b>QUERY</b> :: {$CLASSNAME} :: {$FUNCTIONNAME}() </div>
+                    <div style='float:right;'>[<b>Database:</b> {$server_info}]</div>
+                    <div style='clear:both;'></div>
+                </div>
+                <div style='padding:5px;'>{$last_query}</div>
+            </div>
+            <br />";
+        }
+    }
+    
+    public function GetDatabase($function_name = 'GetDatabase')
+    {
+        if ($this->Database_Type == 'SQLITE') {
+            $query = "SELECT DATABASE()"; //"SELECT name FROM sqlite_master WHERE type='table'";
+        } else {
+            $query = 'SELECT DATABASE()';
+        }
+
+        $query_result = $this->Query($function_name, $query, PDO::FETCH_NUM);
+
+        $RESULT = '';
+        if ($query_result) {
+            $row = $query_result->fetch();
+            $RESULT = $row[0];
+            $query_result->closeCursor();
+        }
+        
+        return $RESULT;
+    }
+    
     
     /* ============== RAW ADDED 2012-11-29 ============== */
     

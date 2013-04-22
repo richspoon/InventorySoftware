@@ -1,0 +1,38 @@
+<name>Admin Modules</name>
+<summary>Admin Modules</summary>
+<title>Admin Modules</title>
+<description>Admin Modules</description>
+<keywords></keywords>
+<style>
+.select_images {
+  overflow : scroll;
+  width : 640px;
+  height : 260px;
+  border : 1px solid #888;
+  margin: 10px 0px;
+}
+
+a.image_selection {
+  float : left;
+  text-decoration : none;
+  text-align : center;
+  width : 100px;
+  height : 80px;
+  border : 1px dotted transparent;
+}
+
+a.image_selection img {
+  width : 60px;
+  height : 60px;
+}
+
+a.image_selection:hover {
+  border : 1px dotted #888;
+  background-color : #eee;
+}
+
+
+</style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>

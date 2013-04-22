@@ -1229,6 +1229,7 @@ class Lib_BaseClass
 
             $searches = $this->SQL->GetArrayAll($this->Custom_Search_Table, 'search_name,search_data',
                 "class_name='$this->Class_Name' AND `{$this->Admin_Id_Name}`=$admin_id AND `active`=1");
+$this->EchoQuery(true);
 
             if ($searches) {
                 foreach ($searches as $row) {

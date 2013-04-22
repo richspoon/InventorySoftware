@@ -61,6 +61,8 @@ $OBJ_MENU->Menu_Multi['Test'] = array(
             'title' => "Inventory_Valuation_SingleItemCostCalculation", ),
     array(  'link'  => "{$link};t=306",
             'title' => "Inventory_Valuation_ValueAdjustment", ),
+    array(  'link'  => "{$link};t=307",
+            'title' => "Inventory_PHPWord_PHPWord", ),
 );
 
 
@@ -293,8 +295,114 @@ switch(Get('t')) {
         
     break;
     
-    
-    
+    case '307':
+        echo "<h1>TEST OF PHPWord_PHPWord</h1>";
+        echo "<br />Class :: PHPWord_PHPWord<br />";
+        
+        
+        
+        
+        $template_path  = "{$ROOT}/document_templates/";
+        $save_path      = "{$ROOT}/document_output/";
+        //$template_file  = "rma_request_master.docx";
+        $template_file  = "Template.docx";
+        //$template_file  = "item.docx";
+        
+        $id             = date("YmdHis");
+        $save_file      = "APDM_RMA_{$id}.docx";
+        
+        
+        $PHPWord        = new PHPWord_PHPWord();
+        $document       = $PHPWord->loadTemplate($template_path . $template_file );
+        
+        
+        if (!$document) {
+            echo "ERROR :: Document Not Found :: {$template}";
+        } else {
+            
+            echo "_documentXML ===> " . $document->_documentXML; 
+            
+            $document->setValue('Value1', 'Sun');
+            $document->setValue('Value2', 'Mercury');
+            $document->setValue('Value3', 'Venus');
+            $document->setValue('Value4', 'Earth');
+            $document->setValue('Value5', 'Mars');
+            $document->setValue('Value6', 'Jupiter');
+            $document->setValue('Value7', 'Saturn');
+            $document->setValue('Value8', 'Uranus');
+            $document->setValue('Value9', 'Neptun');
+            $document->setValue('Value10', 'Pluto');
+            $document->setValue('weekday', date('l'));
+            $document->setValue('time', date('H:i'));
+            
+            
+            $document->setValue('vendor_rma', $id);
+            $document->setValue('date_request', date("Y-m-d"));
+            $document->setValue('date_ship', date("Y-m-d"));
+            $document->setValue('date_return_request', 'N/A');
+            $document->setValue('item_name', 'Monitor Case Bottom');
+            $document->setValue('item_barcode', '10061');
+            $document->setValue('item_sku', 'Monitor_case_bottom_unmarked');
+            $document->setValue('item_quantity', '6');
+            $document->setValue('notes_to_vendor', 'Notes to Vendor: Please notify if you want to send out replacements or just decrease the number received by us for invoicing. It is NOT necessary to replace with new units at this time.');
+            
+            
+            $document->setValue('vendor-rma', $id);
+            $document->setValue('date-request', date("Y-m-d"));
+            $document->setValue('date-ship', date("Y-m-d"));
+            $document->setValue('date-return-request', 'N/A');
+            $document->setValue('item-name', 'Monitor Case Bottom');
+            $document->setValue('item-barcode', '10061');
+            $document->setValue('item-sku', 'Monitor_case_bottom_unmarked');
+            $document->setValue('item-quantity', '6');
+            $document->setValue('notes-to-vendor', 'Notes to Vendor: Please notify if you want to send out replacements or just decrease the number received by us for invoicing. It is NOT necessary to replace with new units at this time.');
+            
+            
+            $document->setValue('vendorrma', $id);
+            $document->setValue('daterequest', date("Y-m-d"));
+            $document->setValue('dateship', date("Y-m-d"));
+            $document->setValue('datereturnrequest', 'N/A');
+            $document->setValue('itemname', 'Monitor Case Bottom');
+            $document->setValue('itembarcode', '10061');
+            $document->setValue('itemsku', 'Monitor_case_bottom_unmarked');
+            $document->setValue('itemquantity', '6');
+            $document->setValue('notestovendor', 'Notes to Vendor: Please notify if you want to send out replacements or just decrease the number received by us for invoicing. It is NOT necessary to replace with new units at this time.');
+            
+            
+            /*
+            $apdm_contact = "Any questions contact: \n Richard Witherspoon \n Richard@apdm.com \n 503-320-7730.";
+            $document->setValue('apdm_contact', $apdm_contact);
+            
+            $ship_address_apdm = "APDM, Inc. \n 2828 Southwest Corbett Avenue \n Suite 130 \n Portland, OR 97201 USA";
+            $document->setValue('apdm_contact', $ship_address_apdm);
+            
+            $ship_address_vendor = "A.R.E. Manufacturing, Inc. \n 518 S. Springbook Rd \n Newberg, Oregon 97132 \n Phone: (503) 538-0350 \n Fax: (503) 538-5148";
+            $document->setValue('apdm_contact', $ship_address_vendor);
+            */
+            
+            
+            /* ===== NOTES ===========
+            Newline character -- http://phpword.codeplex.com/discussions/249089
+            */
+            
+            
+            $document->save($save_path . $save_file);
+            
+            echo "
+            </br></br>
+            <div style='border:5px solid blue; padding:10px; margin:20px;'>
+            _documentXML ===> {$document->_documentXML} 
+            </div>";
+            
+            echo "
+            </br></br>
+            <div style='border:5px solid blue; padding:10px; margin:20px;'>
+            File Saved: {$save_file}</br>
+            <a href='http://webmanager.whhub.com/document_output/{$save_file}' target='_file'>Download File</a>
+            </div>
+            ";
+        }
+    break;
     
 }
 

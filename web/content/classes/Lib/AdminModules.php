@@ -181,6 +181,7 @@ a.image_selection:hover {
             "form|$this->Action_Link|post|db_edit_form",
             "selecttext|Category|category|N|40|80||$category_list",
             'checkbox|Folder|is_folder||1|0',
+            'checkbox|Folder Display Open|folder_default_open||1|0',
             'text|Filename|filename|Y|60|80',
             'text|title|title|Y|60|80',
 

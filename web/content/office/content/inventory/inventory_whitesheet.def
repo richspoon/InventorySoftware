@@ -1,0 +1,10 @@
+<name>Inventory Whitesheet</name>
+<summary>Inventory Whitesheet</summary>
+<title>Inventory Whitesheet</title>
+<description>Inventory Whitesheet</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>
