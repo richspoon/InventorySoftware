@@ -1,0 +1,10 @@
+<name>Inventory Database Select</name>
+<summary>Inventory Database Select</summary>
+<title>Inventory Database Select</title>
+<description>Inventory Database Select</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<_template>template_inventory.html</template>

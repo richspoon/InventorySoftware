@@ -1,0 +1,10 @@
+<name>Inventory Sales Order Assembly</name>
+<summary>Inventory Sales Order Assembly</summary>
+<title>Inventory Sales Order Assembly</title>
+<description>Inventory Sales Order Assembly</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>

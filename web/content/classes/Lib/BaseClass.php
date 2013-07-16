@@ -17,6 +17,7 @@ class Lib_BaseClass
     public  $ClassInfo;  //class information
 
     public  $Class_Name;
+    public  $Classname;
     public  $Base_Class_Name        = 'Lib_BaseClass';
 
     public  $Table;             // the table name
@@ -154,7 +155,21 @@ class Lib_BaseClass
         //$this->Field_Values['country'] = $FORM_COUNTRY_CODES;
 
         $this->Class_Name = get_class($this);
-
+        $this->Classname = get_class($this);
+        $this->ClassInfo = array(
+            'Created By'    => 'Michael Petrovich',
+            'Created Date'  => '2010-10-01',
+            'Updated By'    => 'Richard Witherspoon',
+            'Updated Date'  => '2013-05-01',
+            'Filename'      => $this->Classname,
+            'Version'       => '2.0',
+            'Description'   => 'Base class for all classes',
+            'Update Log'    => array(
+                '2013-05-01_2.0'    => "Modifications to how 'search' tab displays table",
+            ),
+        );
+        
+        
         $this->GetSpanJoins();
 
 
@@ -1212,9 +1227,11 @@ class Lib_BaseClass
 
 
         foreach ($default_fields as $field) {
-            $field = $this->GetFieldAlias($field);
-            $_POST["TABLE_SEARCH_DISPLAY{$idx}_$field"] = 1;
-            $default_query .= "{field: '$field', selector: 'All', filter : '', view : 1},\n";
+            if ($field != '|') {
+                $field = $this->GetFieldAlias($field);
+                $_POST["TABLE_SEARCH_DISPLAY{$idx}_$field"] = 1;
+                $default_query .= "{field: '$field', selector: 'All', filter : '', view : 1},\n";
+            }
         }
 
         $default_query = substr($default_query, 0, -2);
@@ -1229,7 +1246,6 @@ class Lib_BaseClass
 
             $searches = $this->SQL->GetArrayAll($this->Custom_Search_Table, 'search_name,search_data',
                 "class_name='$this->Class_Name' AND `{$this->Admin_Id_Name}`=$admin_id AND `active`=1");
-$this->EchoQuery(true);
 
             if ($searches) {
                 foreach ($searches as $row) {
@@ -1274,8 +1290,8 @@ $this->EchoQuery(true);
                 <a href=`#` onclick=`searchSelectAll(); return false;`>Display All</a>
                 <a href=`#` onclick=`searchClearDisplay(); return false;`>Clear Display</a>
                 <a href=`#` onclick=`searchClearAll(); return false;`>Clear All</a>
-                <a href=`#` onclick=`tableCustomSearchSelect($idx, $default_query); return false;`>Default</a>
-                $custom_search
+                <a href=`#` onclick=`tableCustomSearchSelect({$idx}, {$default_query}); return false;`>Default</a>
+                {$custom_search}
                 </td>
                 </tr>
                 </tbody>
@@ -1291,62 +1307,72 @@ $this->EchoQuery(true);
 
         if (!empty($this->Field_Titles)) {
             foreach ($this->Field_Titles as $field => $title) {
-
-                $complete_field = $field;
-                $field = $this->GetFieldAlias($field);
-
-                $select   = $this->DisplaySearchSelectionOperators($field);
-                $value    = TransformContent(Post("TABLE_SEARCH_VALUE{$idx}_$field"),'TS');
-                if ($field == 'active') {
-                    $input = '';
-                    $span  = ' colspan="2"';
+                
+                
+                if ($title == '|') {
+                    $style_tr   = "style='background-color:#ccc;'";
+                    $style_td   = "style='font-size:14px; font-weight:bold; background-color:#ccc; border-bottom:1px solid #000;'";
+                    $RESULT    .= "<tr {$style_tr}><td colspan='5' {$style_td}></br>{$field}</td></tr>";
+                    
                 } else {
-                    $input = "<td><input class=\"SEARCH_FILTER_VALUE\" type=\"text\" id=\"TABLE_SEARCH_VALUE{$idx}_$field\" name=\"TABLE_SEARCH_VALUE{$idx}_$field\" value=\"$value\" size=\"40\" /></td>";
-                    $span  = '';
-                }
-                if (Post("TABLE_SEARCH_DISPLAY{$idx}_$field") == 1) {
-                    $checked = ' checked="checked"';
-                    $row_class = ' class="SEARCH_SELECT_ROW_SELECTED"';
-                } else {
-                    $checked = '';
-                    $row_class = ' class="SEARCH_SELECT_ROW"';
-                }
-                $checkbox = "<input type=\"checkbox\" class=\"SEARCH_DISPLAY\"
-                   id=\"TABLE_SEARCH_DISPLAY{$idx}_$field\"
-                   name=\"TABLE_SEARCH_DISPLAY{$idx}_$field\" value=\"1\"$checked
-                   onclick=\"changeSearchSelectRow('TABLE_SEARCH_DISPLAY{$idx}_$field');\" />";
+                    
+                    $complete_field = $field;
+                    $field = $this->GetFieldAlias($field);
 
-                list($sort1, $sort2, $sort3) = explode(',', $this->Default_Sort . ',,');
+                    $select   = $this->DisplaySearchSelectionOperators($field);
+                    $value    = TransformContent(Post("TABLE_SEARCH_VALUE{$idx}_$field"),'TS');
+                    if ($field == 'active') {
+                        $input = '';
+                        $span  = ' colspan="2"';
+                    } else {
+                        $input = "<td><input class=\"SEARCH_FILTER_VALUE\" type=\"text\" id=\"TABLE_SEARCH_VALUE{$idx}_$field\" name=\"TABLE_SEARCH_VALUE{$idx}_$field\" value=\"$value\" size=\"40\" /></td>";
+                        $span  = '';
+                    }
+                    if (Post("TABLE_SEARCH_DISPLAY{$idx}_$field") == 1) {
+                        $checked = ' checked="checked"';
+                        $row_class = ' class="SEARCH_SELECT_ROW_SELECTED"';
+                    } else {
+                        $checked = '';
+                        $row_class = ' class="SEARCH_SELECT_ROW"';
+                    }
+                    $checkbox = "<input type=\"checkbox\" class=\"SEARCH_DISPLAY\"
+                       id=\"TABLE_SEARCH_DISPLAY{$idx}_$field\"
+                       name=\"TABLE_SEARCH_DISPLAY{$idx}_$field\" value=\"1\"$checked
+                       onclick=\"changeSearchSelectRow('TABLE_SEARCH_DISPLAY{$idx}_$field');\" />";
 
-                $checked1  = (((Post("TABLE_ORDER$idx") == '') and ($field == $sort1)) or
-                              (Post("TABLE_ORDER$idx") == $field))? ' checked="checked"' : '';
-                $checked2  = (((Post("TABLE_2ORDER$idx") == '') and ($field == $sort2)) or
-                              (Post("TABLE_2ORDER$idx") == $field))? ' checked="checked"' : '';
-                $checked3  = (((Post("TABLE_3ORDER$idx") == '') and ($field == $sort3)) or
-                              (Post("TABLE_3ORDER$idx") == $field))? ' checked="checked"' : '';
-                $radio    = "<input type=\"radio\" id=\"TABLE_ORDER{$idx}_$field\" name=\"TABLE_ORDER$idx\" value=\"$field\"$checked1 />\n";
-                $radio    .= "<input type=\"radio\" id=\"TABLE_2ORDER{$idx}_$field\" name=\"TABLE_2ORDER$idx\" value=\"$field\"$checked2 />\n";
-                $radio    .= "<input type=\"radio\" id=\"TABLE_3ORDER{$idx}_$field\" name=\"TABLE_3ORDER$idx\" value=\"$field\"$checked3 /><br />\n";
+                    list($sort1, $sort2, $sort3) = explode(',', $this->Default_Sort . ',,');
 
-                $checked1  = ( ((Post("TABLE_ORDER$idx") == '') and ("$field DESC" == $sort1)) or
-                              (Post("TABLE_ORDER$idx") == "$field DESC") )? ' checked="checked"' : '';
-                $checked2  = ( ((Post("TABLE_2ORDER$idx") == '') and ("$field DESC" == $sort2)) or
-                              (Post("TABLE_2ORDER$idx") == "$field DESC") )? ' checked="checked"' : '';
-                $checked3  = ( ((Post("TABLE_3ORDER$idx") == '') and ("$field DESC" == $sort3)) or
-                              (Post("TABLE_3ORDER$idx") == "$field DESC") )? ' checked="checked"' : '';
+                    $checked1  = (((Post("TABLE_ORDER{$idx}") == '') and ($field == $sort1)) or
+                                  (Post("TABLE_ORDER{$idx}") == $field))? ' checked="checked"' : '';
+                    $checked2  = (((Post("TABLE_2ORDER{$idx}") == '') and ($field == $sort2)) or
+                                  (Post("TABLE_2ORDER{$idx}") == $field))? ' checked="checked"' : '';
+                    $checked3  = (((Post("TABLE_3ORDER{$idx}") == '') and ($field == $sort3)) or
+                                  (Post("TABLE_3ORDER{$idx}") == $field))? ' checked="checked"' : '';
+                    $radio    = "<input type=\"radio\" id=\"TABLE_ORDER{$idx}_$field\" name=\"TABLE_ORDER$idx\" value=\"$field\"$checked1 />\n";
+                    $radio    .= "<input type=\"radio\" id=\"TABLE_2ORDER{$idx}_$field\" name=\"TABLE_2ORDER$idx\" value=\"$field\"$checked2 />\n";
+                    $radio    .= "<input type=\"radio\" id=\"TABLE_3ORDER{$idx}_$field\" name=\"TABLE_3ORDER$idx\" value=\"$field\"$checked3 /><br />\n";
 
-                $radio   .= "<input type=\"radio\" id=\"TABLE_ORDER{$idx}_{$field}_DESC\" name=\"TABLE_ORDER$idx\" value=\"$field DESC\"$checked1 />\n";
-                $radio   .= "<input type=\"radio\" id=\"TABLE_2ORDER{$idx}_{$field}_DESC\" name=\"TABLE_2ORDER$idx\" value=\"$field DESC\"$checked2 />\n";
-                $radio   .= "<input type=\"radio\" id=\"TABLE_3ORDER{$idx}_{$field}_DESC\" name=\"TABLE_3ORDER$idx\" value=\"$field DESC\"$checked3 />\n";
+                    $checked1  = ( ((Post("TABLE_ORDER{$idx}") == '') and ("$field DESC" == $sort1)) or
+                                  (Post("TABLE_ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
+                    $checked2  = ( ((Post("TABLE_2ORDER{$idx}") == '') and ("$field DESC" == $sort2)) or
+                                  (Post("TABLE_2ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
+                    $checked3  = ( ((Post("TABLE_3ORDER{$idx}") == '') and ("$field DESC" == $sort3)) or
+                                  (Post("TABLE_3ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
 
-                $RESULT .= "
-                <tr$row_class>
-                    <td align=\"right\">$title</td>
-                    <td$span>$select</td>
-                    $input
-                    <td align=\"center\">$checkbox</td>
-                    <td align=\"center\" style=\"white-space:nowrap\">$radio</td>
-                </tr>";
+                    $radio   .= "<input type=\"radio\" id=\"TABLE_ORDER{$idx}_{$field}_DESC\" name=\"TABLE_ORDER$idx\" value=\"$field DESC\"$checked1 />\n";
+                    $radio   .= "<input type=\"radio\" id=\"TABLE_2ORDER{$idx}_{$field}_DESC\" name=\"TABLE_2ORDER$idx\" value=\"$field DESC\"$checked2 />\n";
+                    $radio   .= "<input type=\"radio\" id=\"TABLE_3ORDER{$idx}_{$field}_DESC\" name=\"TABLE_3ORDER$idx\" value=\"$field DESC\"$checked3 />\n";
+
+                    $RESULT .= "
+                    <tr$row_class>
+                        <td align=\"right\">$title</td>
+                        <td$span>$select</td>
+                        $input
+                        <td align=\"center\">$checkbox</td>
+                        <td align=\"center\" style=\"white-space:nowrap\">$radio</td>
+                    </tr>";
+                    
+                } 
             }
         }
 

@@ -71,22 +71,28 @@ echo "<div style='min-width:600px; min-height:300px;'>";
 
 
 switch(Get('t')) {
+    
+    
+    # ===================================================================
+    # ========  REPORT MENU  ========
+    # ===================================================================
+    
     case '1':
         echo "<h1>REPORT :: Sales Order Inventory Available</h1>";
         echo "<br />Class :: Inventory_ReportSalesOrderInventoryAvailable()<br />";
-        $OBJ = new Inventory_ReportSalesOrderInventoryAvailable();
+        $OBJ = new Inventory_Report_SalesOrderInventoryAvailable();
         $OBJ->Execute();
     break;
     case '2':
         echo "<h1>REPORT :: Barcode Current FIFO Value</h1>";
         echo "<br />Class :: Inventory_ReportBarcodeCurrentCOGS()<br />";
-        $OBJ = new Inventory_ReportBarcodeCurrentCOGS();
+        $OBJ = new Inventory_Report_BarcodeCurrentCOGS();
         $OBJ->Execute();
     break;
     case '3':
         echo "<h1>REPORT :: Sales Orders - COGS</h1>";
         echo "<br />Class :: Inventory_ReportSalesOrderCOGS()<br />";
-        $OBJ = new Inventory_ReportSalesOrderCOGS();
+        $OBJ = new Inventory_Report_SalesOrderCOGS();
         $OBJ->Execute();
     break;
     
@@ -100,21 +106,16 @@ switch(Get('t')) {
     case '7':
         echo "<h1>REPORT :: Inventory Value at Given Date</h1>";
         echo "<br />Class :: Inventory_ReportInventoryDatedCOGS()<br />";
-        $OBJ = new Inventory_ReportInventoryDatedCOGS();
+        $OBJ = new Inventory_Report_InventoryDatedCOGS();
         $OBJ->Execute();
     break;
     
-    case '8':
-        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
-        echo "<br />Class :: Inventory_FixInventoryCountsNoDate()<br />";
-        $OBJ = new Inventory_Fix_InventoryCountsNoDate();
-        $OBJ->Execute();
-    break;
+    
     
     case '9':
         echo "<h1>DATABASE INTEGRITY CHECKS</h1>";
         echo "<br />Class :: Inventory_ReportDatabaseIntegrityCheck()<br />";
-        $OBJ = new Inventory_ReportDatabaseIntegrityCheck();
+        $OBJ = new Inventory_Report_DatabaseIntegrityCheck();
         $OBJ->Execute();
     break;
     
@@ -125,6 +126,13 @@ switch(Get('t')) {
     # ===================================================================
     # ========  FIX MENU  ========
     # ===================================================================
+    
+    case '8':
+        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
+        echo "<br />Class :: Inventory_FixInventoryCountsNoDate()<br />";
+        $OBJ = new Inventory_Fix_InventoryCountsNoDate();
+        $OBJ->Execute();
+    break;
     
     case '10':
         echo "<h1>FIX :: INVENTORY ADJUSTMENT - ASSEMBLY PRICE</h1>";

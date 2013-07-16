@@ -24,7 +24,9 @@ class Lib_Pdo
     public $Error                           = '';
     public $Database_Type                   = '';
     public $Calling_Classname               = '';
-
+    
+    public $Classname;
+    
     public function  __construct($type= '', $connection_info = '')
     {
         $this->Db_Start_Time = microtime(true);
@@ -39,6 +41,20 @@ class Lib_Pdo
             }
             $this->Connect($connection_info);
         }
+        
+        $this->Classname = get_class($this);
+        $this->ClassInfo = array(
+            'Created By'    => 'Michael Petrovich',
+            'Created Date'  => '2010-10-01',
+            'Updated By'    => 'Richard Witherspoon',
+            'Updated Date'  => '2013-05-01',
+            'Filename'      => $this->Classname,
+            'Version'       => '2.0',
+            'Description'   => 'PDO library for database connection',
+            'Update Log'    => array(
+                '2013-05-01_2.0'    => "Minor modifications",
+            ),
+        );
     }
 
     public function MText($title, $message)
@@ -1298,9 +1314,8 @@ MTL;
             <br />
             <div style='border:1px solid #ddd;'>
                 <div style='padding:5px; background-color:#e3e3e3;'>
-                    <div style='float:left;'><b>QUERY</b> :: {$CLASSNAME} :: {$FUNCTIONNAME}() </div>
-                    <div style='float:right;'>[<b>Database:</b> {$server_info}]</div>
-                    <div style='clear:both;'></div>
+                    <div><b>QUERY</b> :: {$CLASSNAME} :: {$FUNCTIONNAME}() </div>
+                    <div>[<b>Database:</b> {$server_info}]</div>
                 </div>
                 <div style='padding:5px;'>{$last_query}</div>
             </div>

@@ -397,12 +397,21 @@ Thank you!
                     unset($this->Login_Record['password']);
                     $_SESSION[$this->Session_Name]['LOGIN_RECORD']  = $this->Login_Record;
                     $_SESSION[$this->Session_Name]['LOGIN_OK']      = 'OK';
-                    $_SESSION[$this->Session_Name]['USER_NAME']     =
-                        trim($this->Login_Record['first_name'] . ' ' . $this->Login_Record['last_name']);
-                    $_SESSION[$this->Session_Name]['USER_ID']    = $this->Login_Record[$this->User_Table_Id];
-                    $_SESSION[$this->Session_Name]['SUPER_USER'] = ArrayValue($this->Login_Record, 'super_user');
+                    $_SESSION[$this->Session_Name]['USER_NAME']     = trim($this->Login_Record['first_name'] . ' ' . $this->Login_Record['last_name']);
+                    $_SESSION[$this->Session_Name]['USER_ID']       = $this->Login_Record[$this->User_Table_Id];
+                    $_SESSION[$this->Session_Name]['SUPER_USER']    = ArrayValue($this->Login_Record, 'super_user');
+                    
+                    
+                    // ----- get list of roles
                     $this->SetLoginRoles();
+                    
+                    // ---- add tracking session for baseclass
                     $_SESSION['DB_UPDATE_USER_NAME']  = $_SESSION[$this->Session_Name]['USER_NAME'];
+            
+                    // ----- get list of inventory systems
+                    //$this->SetInventorySystems();
+                    
+                    
                 }
             }
     }
@@ -438,17 +447,17 @@ Thank you!
             $_SESSION[$this->Session_Name]['USER_ID']       = $this->Login_Record[$this->User_Table_Id];
             $_SESSION[$this->Session_Name]['SUPER_USER']    = ArrayValue($this->Login_Record, 'super_user');
 
-            // ==================== get list of roles ====================
+            // ----- get list of roles
             $this->SetLoginRoles();
             
             
             // ---- add tracking session for baseclass ----
             $_SESSION['DB_UPDATE_USER_NAME']  = $_SESSION[$this->Session_Name]['USER_NAME'];
-            // ===========================================================
             
             
-            // ==================== get list of inventory systems ====================
-            $this->SetInventorySystems();
+            
+            // ----- get list of inventory systems
+            //$this->SetInventorySystems();
             
             
             //-------------------- update logfile --------------------
@@ -529,56 +538,7 @@ Thank you!
     }
     
     
-    public function SetInventorySystems()
-    {
-        # FUNCTION :: Get all the inventory systems this user can access
-        
-        
-        $systems_arr = array();     // initialize variable
-        
-        
-        // ----- get a list of all the inventory systems
-        $records = $this->SQL->GetArrayAll('inventory_configuration', 'inventory_configuration_id,client_id,title', "active=1", 'title DESC');
-        //$this->EchoQuery();
-        
-        
-        if ($records) {
-            
-            // ----- process the inventory systems
-            $list_arr = array(); 
-            foreach ($records as $record) {
-                $list_arr[$record['inventory_configuration_id']] = $record['title'];
-            }
-            unset($records);
-            
-            // ----- get the user's actual login record
-            $wh_id = $this->Login_Record['wh_id'];
-            $record = $this->SQL->GetRecord(array(
-                'table' => 'contacts',
-                'keys'  => 'inventory_configuration_id',
-                'where' => "wh_id={$wh_id} AND active=1",
-            ));
-            //$this->EchoQuery();
-            
-            if ($record['inventory_configuration_id'] && $list_arr) {
-                
-                // ----- store the inventory systems
-                $inventory_system_ids = explode(',', $record['inventory_configuration_id']);
-                foreach ($inventory_system_ids as $id) {
-                    // make sure the id exists in the array
-                    if (isset($list_arr[$id])) {
-                        $company = $list_arr[$id];
-                        $systems_arr[$id] = $company;
-                    }
-                }
-            }
-            
-        }
-        
-        // ----- store the values in the _session array
-        //$_SESSION['USER_LOGIN']['INVENTORY_SYSTEMS_CURRENT_ID'] = 1;
-        $_SESSION[$this->Session_Name]['INVENTORY_SYSTEMS_ALLOWED'] = $systems_arr;
-    }
+    
     
     
 }

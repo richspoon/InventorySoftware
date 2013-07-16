@@ -1,0 +1,10 @@
+<name>Settings</name>
+<summary>Settings</summary>
+<title>Settings</title>
+<description>Settings</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>

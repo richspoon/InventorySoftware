@@ -1,0 +1,10 @@
+<name>Sales Order Sort</name>
+<summary>Sales Order Sort</summary>
+<title>Sales Order Sort</title>
+<description>Sales Order Sort</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>

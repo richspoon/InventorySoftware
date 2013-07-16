@@ -1,6 +1,6 @@
 <?php
 
-AddStylesheet("/css/inventory.css??20120924-6");
+//AddStylesheet("/css/inventory.css??20120924-6");
 
 /*
 echo "
@@ -13,7 +13,7 @@ switch (Get('t')) {
 
     default:
     case 'place':
-        echo "<h2>CREATE SALES ORDER</h2>";
+        //echo "<h2>CREATE SALES ORDER</h2>";
         $Obj = new Inventory_InventorySalesOrderPlace();
         break;
         

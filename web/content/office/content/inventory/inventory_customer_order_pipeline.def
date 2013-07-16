@@ -1,0 +1,10 @@
+<name>Customer Order Pipeline</name>
+<summary>Customer Order Pipeline</summary>
+<title>Customer Order Pipeline</title>
+<description>Customer Order Pipeline</description>
+<keywords></keywords>
+<style></style>
+<scriptinclude></scriptinclude>
+<script></script>
+<body></body>
+<___template>template_inventory.html</template>
