@@ -35,6 +35,10 @@
  */
 class PHPWord_Template {
     
+    
+    
+    
+    
     /**
      * ZipArchive
      * 
@@ -54,7 +58,7 @@ class PHPWord_Template {
      * 
      * @var string
      */
-    private $_documentXML;
+    public $_documentXML;
     
     
     /**
@@ -81,8 +85,14 @@ class PHPWord_Template {
      * @param mixed $replace
      */
     public function setValue($search, $replace) {
-        if(substr($search, 0, 2) !== '${' && substr($search, -1) !== '}') {
-            $search = '${'.$search.'}';
+        
+        $Search_Start       = '[[';
+        $Search_End         = ']]';
+        $cnt_search_start   = count($Search_Start);
+        $cnt_search_end     = count($Search_End);
+        
+        if((substr($search, 0, $cnt_search_start) !== $Search_Start) && (substr($search, -$cnt_search_end) !== $Search_End)) {
+            $search = $Search_Start . $search . $Search_End;
         }
         
         if(!is_array($replace)) {
@@ -102,6 +112,7 @@ class PHPWord_Template {
             unlink($strFilename);
         }
         
+        
         $this->_objZip->addFromString('word/document.xml', $this->_documentXML);
         
         // Close zip file
@@ -111,5 +122,49 @@ class PHPWord_Template {
         
         rename($this->_tempFileName, $strFilename);
     }
-}
+
+    
+    
+    /**
+    * Clone a table row
+    *
+    * @param mixed $search
+    * @param mixed $numberOfClones
+    */
+    public function cloneRow($search, $numberOfClones) {
+        
+        $Search_Start       = '[[';
+        $Search_End         = ']]';
+        $cnt_search_start   = count($Search_Start);
+        $cnt_search_end     = count($Search_End);
+        
+        //if((substr($search, 0, $cnt_search_start) !== $Search_Start) && (substr($search, -$cnt_search_end) !== $Search_End)) {
+        //    $search = $Search_Start . $search . $Search_End;
+        //}
+        
+        $search = $Search_Start . $search . $Search_End;
+        
+        $tagPos 	    = strpos($this->_documentXML, $search);
+		$rowStartPos    = strrpos($this->_documentXML, "<w:tr", ((strlen($this->_documentXML) - $tagPos) * -1));
+		$rowEndPos      = strpos($this->_documentXML, "</w:tr>", $tagPos) + 7;
+		$result         = substr($this->_documentXML, 0, $rowStartPos);
+		$xmlRow         = substr($this->_documentXML, $rowStartPos, ($rowEndPos - $rowStartPos));
+        
+		for ($i = 1; $i <= $numberOfClones; $i++) {
+			//$result .= preg_replace('/\$\{(.*?)\}/','\${\\1#'.$i.'}', $xmlRow);
+            $result_line = preg_replace('/\[\[(.*?)\]\]/','[[\\1#'.$i.']]', $xmlRow);
+            $result .=$result_line;
+            
+            
+            echo '</br>xmlRow ===> ' . $xmlRow;
+            echo '</br>result_line ===> ' . $result_line;
+		}
+		$result .= substr($this->_documentXML, $rowEndPos);
+        
+		$this->_documentXML = $result;
+    }
+    
+    
+    
+} // END CLASS
 ?>

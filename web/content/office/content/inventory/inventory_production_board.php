@@ -15,6 +15,8 @@ $OBJ_MENU->Menu_Raw = array(
             'title' => "Whitesheets", ),
     array(  'link'  => "{$link};t=4",
             'title' => "Notes", ),
+    array(  'link'  => "{$link};t=5",
+            'title' => "Summary", ),
 );
 echo $OBJ_MENU->Execute();
 echo "<div style='min-width:300px; min-height:300px;'>&nbsp;";
@@ -40,6 +42,13 @@ switch(Get('t')) {
         echo "<div style='font-size:16px; font-weight:bold;'>Notes</div>";
         echo "<div>Class :: Inventory_ProductionBoardNotes()</div><br /><br />";
         $OBJ = new Inventory_ProductionBoardNotes();
+        $OBJ->Execute();
+    break;
+    
+    case '5':
+        echo "<div style='font-size:16px; font-weight:bold;'>Summary</div>";
+        echo "<div>Class :: Inventory_ProductionBoardSummary()</div><br /><br />";
+        $OBJ = new Inventory_ProductionBoardSummary();
         $OBJ->Execute();
     break;
     

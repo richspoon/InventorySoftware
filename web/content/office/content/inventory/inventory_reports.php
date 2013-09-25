@@ -1,70 +1,80 @@
 <?php
+global $ADMIN_SUPER_USER;
+
 
 # NOTE :: Must have the DIALOGID passed in all of the menu links for table won't refresh
-$DIALOGID = Get('DIALOGID');
+$DIALOGID   = Get('DIALOGID');
+$link       = "/office/inventory/inventory_reports;DIALOGID={$DIALOGID}";
 
-$link = "/office/inventory/inventory_reports;DIALOGID={$DIALOGID}";
 
 $OBJ_MENU = new Inventory_DropdownMenu();
 $OBJ_MENU->Menu_Multi = array();
 
 
 $OBJ_MENU->Menu_Multi['General'] = array(
-    array(  'link'  => "{$link};t=1",
+    array(  'link'  => "{$link};t=401",
             'title' => "Sales Order Inventory Available", ),
-    array(  'link'  => "{$link};t=3",
+    array(  'link'  => "{$link};t=403",
             'title' => "Sales Order COGS", ),
-    array(  'link'  => "{$link};t=2",
+    array(  'link'  => "{$link};t=402",
             'title' => "Barcode Current FIFO Value", ),
-    array(  'link'  => "{$link};t=6",
+    array(  'link'  => "{$link};t=406",
             'title' => "MANUFACTURING RESOURCE PLANNING", ),
-    array(  'link'  => "{$link};t=7",
+    array(  'link'  => "{$link};t=407",
             'title' => "Inventory Value Report", ),
-    array(  'link'  => "{$link};t=9",
+    array(  'link'  => "{$link};t=408",
+            'title' => "Inventory Re-order Point Report", ),
+    array(  'link'  => "{$link};t=409",
             'title' => "Database Integrity Checks", ),
 );
 
 
-$OBJ_MENU->Menu_Multi['Fix'] = array(
-    array(  'link'  => "{$link};t=13",
-            'title' => "SCRIPT - inventory adjustments - convert to average valuation", ),
-    array(  'link'  => "{$link};t=4",
-            'title' => "fix inventory counts", ),
-    array(  'link'  => "{$link};t=5",
-            'title' => "fix $0 inventory adjustments", ),
-    array(  'link'  => "{$link};t=8",
-            'title' => "fix no date inventory counts", ),
-    array(  'link'  => "{$link};t=10",
-            'title' => "fix inventory adjustments price", ),
-    array(  'link'  => "{$link};t=11",
-            'title' => "fix date mis-match in inventory_counts", ),
-    array(  'link'  => "{$link};t=12",
-            'title' => "fix inventory build records without build record", ),
-    array(  'link'  => "{$link};t=208",
-            'title' => "fix POs - map to ID", ),
-    array(  'link'  => "{$link};t=209",
-            'title' => "fix POs - wrongly deactivated records", ),
-	array(  'link'  => "{$link};t=210",
-            'title' => "fix SOs - map to ID", ),
-);
+if ($ADMIN_SUPER_USER) {
+    $OBJ_MENU->Menu_Multi['Fix'] = array(
+        array(  'link'  => "{$link};t=213",
+                'title' => "SCRIPT - inventory adjustments - convert to average valuation", ),
+        array(  'link'  => "{$link};t=204",
+                'title' => "fix inventory counts", ),
+        array(  'link'  => "{$link};t=205",
+                'title' => "fix $0 inventory adjustments", ),
+        array(  'link'  => "{$link};t=208",
+                'title' => "fix no date inventory counts", ),
+        array(  'link'  => "{$link};t=210",
+                'title' => "fix inventory adjustments price", ),
+        array(  'link'  => "{$link};t=211",
+                'title' => "fix date mis-match in inventory_counts", ),
+        array(  'link'  => "{$link};t=212",
+                'title' => "fix inventory build records without build record", ),
+        array(  'link'  => "{$link};t=208",
+                'title' => "fix POs - map to ID", ),
+        array(  'link'  => "{$link};t=209",
+                'title' => "fix POs - wrongly deactivated records", ),
+        array(  'link'  => "{$link};t=210",
+                'title' => "fix SOs - map to ID", ),
+        array(  'link'  => "{$link};t=214",
+                'title' => "fix SOs - No UID", ),
+    );
+}
 
-$OBJ_MENU->Menu_Multi['Test'] = array(
-    array(  'link'  => "{$link};t=301",
-            'title' => "Inventory_Valuation_InventoryAssemblyCalculateValue", ),
-    array(  'link'  => "{$link};t=302",
-            'title' => "Inventory_Valuation_Adjustment", ),
-    array(  'link'  => "{$link};t=303",
-            'title' => "Inventory_Valuation_Handler", ),
-    array(  'link'  => "{$link};t=304",
-            'title' => "Inventory_EconomicOrderQuantity", ),
-    array(  'link'  => "{$link};t=305",
-            'title' => "Inventory_Valuation_SingleItemCostCalculation", ),
-    array(  'link'  => "{$link};t=306",
-            'title' => "Inventory_Valuation_ValueAdjustment", ),
-    array(  'link'  => "{$link};t=307",
-            'title' => "Inventory_PHPWord_PHPWord", ),
-);
 
+if ($ADMIN_SUPER_USER) {
+    $OBJ_MENU->Menu_Multi['Test'] = array(
+        array(  'link'  => "{$link};t=301",
+                'title' => "Inventory_Valuation_InventoryAssemblyCalculateValue", ),
+        array(  'link'  => "{$link};t=302",
+                'title' => "Inventory_Valuation_Adjustment", ),
+        array(  'link'  => "{$link};t=303",
+                'title' => "Inventory_Valuation_Handler", ),
+        array(  'link'  => "{$link};t=304",
+                'title' => "Inventory_EconomicOrderQuantity", ),
+        array(  'link'  => "{$link};t=305",
+                'title' => "Inventory_Valuation_SingleItemCostCalculation", ),
+        array(  'link'  => "{$link};t=306",
+                'title' => "Inventory_Valuation_ValueAdjustment", ),
+        array(  'link'  => "{$link};t=307",
+                'title' => "Inventory_PHPWord_PHPWord", ),
+    );
+}
 
 echo $OBJ_MENU->Execute();
 echo "<div style='min-width:600px; min-height:300px;'>";
@@ -77,44 +87,51 @@ switch(Get('t')) {
     # ========  REPORT MENU  ========
     # ===================================================================
     
-    case '1':
+    case '401':
         echo "<h1>REPORT :: Sales Order Inventory Available</h1>";
         echo "<br />Class :: Inventory_ReportSalesOrderInventoryAvailable()<br />";
         $OBJ = new Inventory_Report_SalesOrderInventoryAvailable();
         $OBJ->Execute();
     break;
-    case '2':
+    case '402':
         echo "<h1>REPORT :: Barcode Current FIFO Value</h1>";
         echo "<br />Class :: Inventory_ReportBarcodeCurrentCOGS()<br />";
         $OBJ = new Inventory_Report_BarcodeCurrentCOGS();
         $OBJ->Execute();
     break;
-    case '3':
+    case '403':
         echo "<h1>REPORT :: Sales Orders - COGS</h1>";
-        echo "<br />Class :: Inventory_ReportSalesOrderCOGS()<br />";
+        echo "<br />Class :: Inventory_Report_SalesOrderCOGS()<br />";
         $OBJ = new Inventory_Report_SalesOrderCOGS();
         $OBJ->Execute();
     break;
     
-    case '6':
+    case '406':
         echo "<h1>MANUFACTURING RESOURCE PLANNING</h1>";
         echo "<br />Class :: Inventory_ManufacturingResourcePlanning()<br />";
         $OBJ = new Inventory_ManufacturingResourcePlanning();
         $OBJ->Execute();
     break;
     
-    case '7':
+    case '407':
         echo "<h1>REPORT :: Inventory Value at Given Date</h1>";
-        echo "<br />Class :: Inventory_ReportInventoryDatedCOGS()<br />";
+        echo "<br />Class :: Inventory_Report_InventoryDatedCOGS()<br />";
         $OBJ = new Inventory_Report_InventoryDatedCOGS();
         $OBJ->Execute();
     break;
     
     
+    case '408':
+        echo "<h1>REPORT :: Inventory Re-order Point Report</h1>";
+        echo "<br />Class :: Inventory_Report_ReorderPoint()<br />";
+        $OBJ = new Inventory_Report_ReorderPoint();
+        $OBJ->Execute();
+    break;
     
-    case '9':
+    
+    case '409':
         echo "<h1>DATABASE INTEGRITY CHECKS</h1>";
-        echo "<br />Class :: Inventory_ReportDatabaseIntegrityCheck()<br />";
+        echo "<br />Class :: Inventory_Report_DatabaseIntegrityCheck()<br />";
         $OBJ = new Inventory_Report_DatabaseIntegrityCheck();
         $OBJ->Execute();
     break;
@@ -127,49 +144,49 @@ switch(Get('t')) {
     # ========  FIX MENU  ========
     # ===================================================================
     
-    case '8':
+    case '208':
         echo "<h1>SCRIPT TO FIX ERRORS</h1>";
         echo "<br />Class :: Inventory_FixInventoryCountsNoDate()<br />";
         $OBJ = new Inventory_Fix_InventoryCountsNoDate();
         $OBJ->Execute();
     break;
     
-    case '10':
+    case '210':
         echo "<h1>FIX :: INVENTORY ADJUSTMENT - ASSEMBLY PRICE</h1>";
         echo "<br />Class :: Inventory_FixInventoryAdjustmentAssemblyPrice()<br />";
         $OBJ = new Inventory_Fix_InventoryAdjustmentAssemblyPrice();
         $OBJ->Execute();
     break;
     
-    case '11':
+    case '211':
         echo "<h1>FIX :: INVENTORY COUNT - MIS-MATCHED DATE</h1>";
         echo "<br />Class :: Inventory_FixInventoryDateMismatch()<br />";
         $OBJ = new Inventory_Fix_InventoryDateMismatch();
         $OBJ->Execute();
     break;
     
-    case '12':
+    case '212':
         echo "<h1>FIX :: INVENTORY BUILD RECORD - NO BUILD RECORD FOUND</h1>";
         echo "<br />Class :: Inventory_FixAssemblyNoBuildRecord()<br />";
         $OBJ = new Inventory_Fix_AssemblyNoBuildRecord();
         $OBJ->Execute();
     break;
     
-    case '13':
+    case '213':
         echo "<h1>FIX :: INVENTORY ADJUSTMENT - AVERAGE VALUE METHOD</h1>";
         echo "<br />Class :: Inventory_FixInventoryAdjustmentValue()<br />";
         $OBJ = new Inventory_Fix_InventoryAdjustmentValue();
         $OBJ->Execute();
     break;
     
-    case '4':
+    case '204':
         echo "<h1>SCRIPT TO FIX ERRORS</h1>";
         echo "<br />Class :: Inventory_FixOriginalScan()<br />";
         $OBJ = new Inventory_Fix_OriginalScan();
         $OBJ->Execute();
     break;
     
-    case '5':
+    case '205':
         echo "<h1>SCRIPT TO FIX ERRORS</h1>";
         echo "<br />Class :: Inventory_FixZeroDollarInventoryAdjustment()<br />";
         $OBJ = new Inventory_Fix_ZeroDollarInventoryAdjustment();
@@ -197,6 +214,12 @@ switch(Get('t')) {
         $OBJ->Execute();
     break;
     
+    case '214':
+        echo "<h1>SCRIPT TO FIX ERRORS</h1>";
+        echo "<br />Class :: Inventory_Fix_NoUID()<br />";
+        $OBJ = new Inventory_Fix_NoUID();
+        $OBJ->Execute();
+    break;
     
     
     
@@ -309,15 +332,19 @@ switch(Get('t')) {
         
         
         
-        
         $template_path  = "{$ROOT}/document_templates/";
         $save_path      = "{$ROOT}/document_output/";
+        
+        
         //$template_file  = "rma_request_master.docx";
-        $template_file  = "Template.docx";
+        //$template_file  = "Template.docx";
         //$template_file  = "item.docx";
         
-        $id             = date("YmdHis");
-        $save_file      = "APDM_RMA_{$id}.docx";
+        
+        $inventory_sales_orders_id      = 20;
+        $template_file                  = "template_checklist.docx";
+        $id                             = date("YmdHis");
+        $save_file                      = "APDM_SO{$inventory_sales_orders_id}_{$id}.docx";
         
         
         $PHPWord        = new PHPWord_PHPWord();
@@ -328,7 +355,23 @@ switch(Get('t')) {
             echo "ERROR :: Document Not Found :: {$template}";
         } else {
             
+            $OBJ_Order = new Inventory_InventorySalesOrderPlace();
+            $record = $OBJ_Order->SQL->GetRecord(array(
+                'table' => 'inventory_sales_orders',
+                'keys'  => '*',
+                'where' => "inventory_sales_orders_id={$inventory_sales_orders_id}",
+            ));
+            
+            //$OBJ_Order->SQL->EchoQuery($this->Classname, __FUNCTION__, true);
+            //$OBJ_Order->EchoVar('record', $record);
+            
+            foreach ($record AS $key => $value) {
+                //$key = str_replace('_', '', $key);
+                $document->setValue($key, $value);
+            }
+            
             echo "_documentXML ===> " . $document->_documentXML; 
+            
             
             $document->setValue('Value1', 'Sun');
             $document->setValue('Value2', 'Mercury');
@@ -399,7 +442,8 @@ switch(Get('t')) {
             echo "
             </br></br>
             <div style='border:5px solid blue; padding:10px; margin:20px;'>
-            _documentXML ===> {$document->_documentXML} 
+            </br>template_file ===> {$template_file}
+            </br>_documentXML ===> {$document->_documentXML} 
             </div>";
             
             echo "

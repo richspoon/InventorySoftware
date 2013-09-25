@@ -9,6 +9,8 @@ $OBJ_MENU = new Inventory_DropdownMenu();
 $OBJ_MENU->Menu_Raw = array(
     array(  'link'  => "/office/inventory/inventory_assembly;DIALOGID={$DIALOGID};t=design",
             'title' => "DESIGN ASSEMBLY GROUP", ),
+    array(  'link'  => "/office/inventory/inventory_assembly;DIALOGID={$DIALOGID};t=designadvanced",
+            'title' => "DESIGN ASSEMBLY GROUP - ADVANCED", ),
     array(  'link'  => "/office/inventory/inventory_assembly;DIALOGID={$DIALOGID};t=place",
             'title' => "CREATE ASSEMBLY REQUEST",   ),
     array(  'link'  => "/office/inventory/inventory_assembly;DIALOGID={$DIALOGID};t=build",
@@ -25,6 +27,10 @@ default:
         $Obj = new Inventory_InventoryAssemblyCreate();
         break;
         
+    case 'designadvanced':
+        echo "<h2>DESIGN ASSEMBLY (ADVANCED) REQUEST</h2>";
+        $Obj = new Inventory_InventoryAssemblyCreate2();
+        break;    
     
     case 'place':
         echo "<h2>CREATE ASSEMBLY REQUEST</h2>";
