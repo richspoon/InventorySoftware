@@ -14,111 +14,84 @@
 
 class Lib_BaseClass
 {
-    public  $ClassInfo;  //class information
-
+    public  $ClassInfo;                                                     //class information
     public  $Class_Name;
     public  $Classname;
-    public  $Base_Class_Name        = 'Lib_BaseClass';
-
-    public  $Table;             // the table name
+    public  $Base_Class_Name                = 'Lib_BaseClass';
+    public  $Table;                                                         // the table name
     public  $Table_Title;
-    public  $Span_Tables            = array();  // array of tables to span in adding or editing
-    public  $Span_Tables_Join_Field = '';  //linking field to use for spans
-    public  $Span_Joins             = '';
-
-    public  $Demo = false;  // When true does not write to database
-
-    public  $Custom_Search_Table   = 'admin_custom_searches';
-
-    public  $User_Login_Var        = 'USER_LOGIN';
-    public  $User_Session_Name     = 'USER_LOGIN';
-
-    public  $Admin_Id_Name         = 'admin_users_id';
-
-    public  $Flags                 = '';
-
-    public  $Index_Name            = 'id';  // the table index
-
-    public  $Add_Submit_Name       = 'DB_SUBMIT_ADD'; //the name of the submit button when adding
-    public  $Edit_Submit_Name      = 'DB_SUBMIT_EDIT'; //the name of the submit button when editing
-    public  $Action                = ''; //What action (ADD,EDIT, etc)
-    public  $Action_Copy           = false; //for copy record
-    public  $Error                 = ''; //the error variable
-    public  $Edit_Id               = 0;
-    public  $Edit_Id_Field         = '';
-
-    public  $Action_Link;           // action link is the link used for posting forms
-
-    public  $Field_Titles;          // this is an associative array created in extensions that define: field name => title
-    public  $Form_Data_Array_Add;   // this is the form array used to add a record
-    public  $Form_Data_Array_Edit;  // this is the form array used when editing a record
-    public  $Form_Array            = '';  // data processed from form;
-    public  $Unique_Fields;         // this is a comma delimited list of fields that must be unique in the database
-    public  $Default_Fields;        //this is a comma delimited list of fields that initially display in a table
-    public  $Default_Values        = array(); // this is an associative array of fields and their default values when adding a record
-    public  $Autocomplete_Fields   = ''; // this is an associative array of: field => table|field|variable
-    public  $Form_Table            = ''; // this is the html table returned from form processing
-
+    public  $Span_Tables                    = array();                      // array of tables to span in adding or editing
+    public  $Span_Tables_Join_Field         = '';                           //linking field to use for spans
+    public  $Span_Joins                     = '';
+    public  $Demo                           = false;                        // When true does not write to database
+    public  $Custom_Search_Table            = 'admin_custom_searches';
+    public  $User_Login_Var                 = 'USER_LOGIN';
+    public  $User_Session_Name              = 'USER_LOGIN';
+    public  $Admin_Id_Name                  = 'admin_users_id';
+    public  $Flags                          = '';
+    public  $Index_Name                     = 'id';                         // the table index
+    public  $Add_Submit_Name                = 'DB_SUBMIT_ADD';              //the name of the submit button when adding
+    public  $Edit_Submit_Name               = 'DB_SUBMIT_EDIT';             //the name of the submit button when editing
+    public  $Action                         = '';                           //What action (ADD,EDIT, etc)
+    public  $Action_Copy                    = false;                        //for copy record
+    public  $Error                          = '';                           //the error variable
+    public  $Edit_Id                        = 0;
+    public  $Edit_Id_Field                  = '';
+    public  $Action_Link;                                                   // action link is the link used for posting forms
+    public  $Field_Titles;                                                  // this is an associative array created in extensions that define: field name => title
+    public  $Form_Data_Array_Add;                                           // this is the form array used to add a record
+    public  $Form_Data_Array_Edit;                                          // this is the form array used when editing a record
+    public  $Form_Array                     = '';                           // data processed from form;
+    public  $Unique_Fields;                                                 // this is a comma delimited list of fields that must be unique in the database
+    public  $Default_Fields;                                                //this is a comma delimited list of fields that initially display in a table
+    public  $Default_Values                 = array();                      // this is an associative array of fields and their default values when adding a record
+    public  $Autocomplete_Fields            = '';                           // this is an associative array of: field => table|field|variable
+    public  $Form_Table                     = '';                           // this is the html table returned from form processing
     public  $Field_Values = array (
                 'active' => array(0=> 'No', 1 => 'Yes')
-            );  // Field_Values are the used to change the display of values in a table: field => array of values=>new values
+            );                                                              // Field_Values are the used to change the display of values in a table: field => array of values=>new values
 
-    public  $Default_Where         = '';
-    public  $Default_Sort          = '';
-    public  $Default_List_Size     = 25;
-
-    public  $Flash_Field           = '';  // this is a field that displays briefly when a record is added
-
-    public  $Idx;  // this is an index used for displaying tables.  The index is used so more than one table can be displayed.
-    public  $Dialog_Id             = '';
-
+    public  $Default_Where                  = '';
+    public  $Default_Sort                   = '';
+    public  $Default_List_Size              = 25;
+    public  $Flash_Field                    = '';                           // this is a field that displays briefly when a record is added
+    public  $Idx;                                                           // this is an index used for displaying tables.  The index is used so more than one table can be displayed.
+    public  $Dialog_Id                      = '';
     public  $User_Info;
-    public  $User_Name;  // the user name accessing the class
-
-    public  $Insert_Id = 0;
-
-    public  $Export_Xml_Header_Text_Color = '#FFFFFF';
-    public  $Export_Xml_Header_Cell_Color = '#0070C0';
-
-    public  $Parameters              = array();
-    public  $Parameter_Count         = 0;
-    public  $Parameter_String        = '';
-    public  $Parameter_String_Prefix = 'PARAM:';
-    public  $SQL                     = '';  //SQL PDO connection object
-
-    private $Table_Creation_Query;  // the is supposed to be the table creation query, but is not used
-
-    // default table options are used when displaying tables
-    public  $Default_Table_Options = 'cellspacing="1" cellpadding="0"';
-    public  $Default_View_Table_Options = 'cellspacing="1" cellpadding="0" class="VIEW_RECORD_TABLE"';
-    public  $Default_Td_Options    = '';
-    public  $Default_Th_Options    = '';
-    public  $Edit_Links            = '';  //this is the links used to view/edit/delete or anything else for each row.  Variables are swapped into this template
-    public  $Add_Link              = '';
-
-    public  $Edit_Links_Count      = 3;  // this is the number of links, used to know how many table cells are needed for the edit links
-    public  $Joins  = '';  // this is any joins need for a table
-    public  $Default_Joins         = '';  // this is any joins need for a start table (used in creating initial table)
-    public  $Join_Array            = '';
-    public  $Use_Join_Array        = array();
-
-    public  $Table_Update_Log      = 'table_update_log';  // this is the name of the table that is used for updating
-    public  $Admin_Log_Table       = 'admin_log';  // this is the name of the table that is used for updating
-
-    public  $Export_Link               = '/wo/wo_export_helper.php';  // this is the default link to an export_helper program
-    public  $Auto_Complete_Helper      = '/wo/wo_autocomplete_helper.php';
-    public  $Tab_Search_Table_Function = 'setTabSearchTable';
-
-    public  $Set_Custom_Search     = true;
-
-    public  $Use_Active = true;   // use active is set to use the 'active' field
-
-    private $Db_Query_Display  = '';  // used to display queries in ajax calls
-    protected $Last_Update_Id  = '';
-    public  $Record_Found      = true;
-    public  $Close_On_Success  = true;  // close dialog on sucessfull editing
-    public  $Use_Selection_Tab = true; // tab for selection of items
-    public  $Show_Export       = true;
+    public  $User_Name;                                                     // the user name accessing the class
+    public  $Insert_Id                      = 0;
+    public  $Export_Xml_Header_Text_Color   = '#FFFFFF';
+    public  $Export_Xml_Header_Cell_Color   = '#0070C0';
+    public  $Parameters                     = array();
+    public  $Parameter_Count                = 0;
+    public  $Parameter_String               = '';
+    public  $Parameter_String_Prefix        = 'PARAM:';
+    public  $SQL                            = '';                           //SQL PDO connection object
+    private $Table_Creation_Query;                                          // the is supposed to be the table creation query, but is not used
+    public  $Default_Table_Options          = 'cellspacing="1" cellpadding="0"';
+    public  $Default_View_Table_Options     = 'cellspacing="1" cellpadding="0" class="VIEW_RECORD_TABLE"';
+    public  $Default_Td_Options             = '';
+    public  $Default_Th_Options             = '';
+    public  $Edit_Links                     = '';                           //this is the links used to view/edit/delete or anything else for each row.  Variables are swapped into this template
+    public  $Add_Link                       = '';
+    public  $Edit_Links_Count               = 3;                            // this is the number of links, used to know how many table cells are needed for the edit links
+    public  $Joins                          = '';                           // this is any joins need for a table
+    public  $Default_Joins                  = '';                           // this is any joins need for a start table (used in creating initial table)
+    public  $Join_Array                     = '';
+    public  $Use_Join_Array                 = array();
+    public  $Table_Update_Log               = 'table_update_log';                       // this is the name of the table that is used for updating
+    public  $Admin_Log_Table                = 'admin_log';                              // this is the name of the table that is used for updating
+    public  $Export_Link                    = '/wo/wo_export_helper.php';               // this is the default link to an export_helper program
+    public  $Auto_Complete_Helper           = '/wo/wo_autocomplete_helper.php';
+    public  $Tab_Search_Table_Function      = 'setTabSearchTable';
+    public  $Set_Custom_Search              = true;
+    public  $Use_Active                     = true;                         // use active is set to use the 'active' field
+    private $Db_Query_Display               = '';                           // used to display queries in ajax calls
+    protected $Last_Update_Id               = '';
+    public  $Record_Found                   = true;
+    public  $Close_On_Success               = true;                         // close dialog on sucessfull editing
+    public  $Use_Selection_Tab              = true;                         // tab for selection of items
+    public  $Show_Export                    = true;
 
     // ----------- this is a variable of the search operators ---------------
     public  $Search_Selection_Operators = array(
@@ -128,34 +101,34 @@ class Lib_BaseClass
        'Between (x|y)'
     );
 
-    public  $Active_Keys = array(1=>'Active Only',2=>'Inactive Only',3=>'Active and Inactive');
-
-
+    public $Active_Keys                     = array(1=>'Active Only',2=>'Inactive Only',3=>'Active and Inactive');
+    public $TableHeading_ShowTitle          = true;
+    public $Show_Table_Post_Process         = false;
+    public $Bypass_Form_Processing          = false;                        // (false) TRUE = don't process the form after running PostProcessFormValues() function.
+    
+    
     // ----------- construction ---------------
     public function  __construct()
     {
-        //global $FORM_COUNTRY_CODES;
-        //Form_LoadCountryCodes();
+        
+        $this->SetSQL();                                                    // connect to database
 
-        $this->SetSQL();
-
-        $this->Action_Link   = $_SERVER['REQUEST_URI'];
-
-        $this->User_Name = Session('DB_UPDATE_USER_NAME');  // need to set this session variable for tracking
-        $this->User_Info = Session($this->User_Session_Name);
-
-        if (empty($GLOBALS['TABLE_BASE_INDEX_COUNT'])) {
+        $this->Action_Link      = $_SERVER['REQUEST_URI'];                  // this page's URL
+        $this->User_Name        = Session('DB_UPDATE_USER_NAME');           // store the User's name for tracking
+        $this->User_Info        = Session($this->User_Session_Name);
+        $this->Dialog_Id        = Get('DIALOGID');                          // current window ID
+        
+        if (empty($GLOBALS['TABLE_BASE_INDEX_COUNT'])) {                    // calculate next table index
             $GLOBALS['TABLE_BASE_INDEX_COUNT'] = 1;
         } else {
             $GLOBALS['TABLE_BASE_INDEX_COUNT']++;
         }
-        $this->Idx = $GLOBALS['TABLE_BASE_INDEX_COUNT'];
-        $this->Dialog_Id = Get('DIALOGID');
-
-        //$this->Field_Values['country'] = $FORM_COUNTRY_CODES;
-
-        $this->Class_Name = get_class($this);
-        $this->Classname = get_class($this);
+        
+        $this->Idx              = $GLOBALS['TABLE_BASE_INDEX_COUNT'];       // store current table index
+        
+        $this->Class_Name   = get_class($this);                             // initialize class name variable
+        $this->Classname    = get_class($this);                             // initialize class name variable
+        
         $this->ClassInfo = array(
             'Created By'    => 'Michael Petrovich',
             'Created Date'  => '2010-10-01',
@@ -363,6 +336,8 @@ class Lib_BaseClass
             `new_record` text,
             `changed_by` varchar(80)
         */
+        
+        /*
         $keys = '`table`,`table_id`, `action`, `old_record`, `new_record`, `changed_by`';
         $values = $this->SQL->QuoteValueC($this->Table) . $this->SQL->QuoteValueC($table_id) . $this->SQL->QuoteValueC($action)
                 . $this->SQL->QuoteValueC(serialize($old_record_array))
@@ -378,6 +353,9 @@ class Lib_BaseClass
         }
 
         return $RESULT;
+        */
+        
+        return true;
     }
 
     public function AddAdminLogUpdateRecord($id)
@@ -629,7 +607,8 @@ class Lib_BaseClass
         }
 
         AddScript(
-            "top.parent.setTopFlash('Record [$this->Last_Update_Id] Added to $table');
+            //"top.parent.setTopFlash('Record [$this->Last_Update_Id] Added to $table');
+            "top.parent.setTopFlash('Record Added to $table');
             $return
             $close"
         );
@@ -654,6 +633,49 @@ class Lib_BaseClass
         AddScript(
             "$script;
             top.parent.setTopFlash('$table Record [$flash] Updated');
+            $close"
+        );
+
+        return '';
+    }
+    
+    public function SuccessfulDeleteRecord()
+    {
+        $table              = $this->GetTableTitle();
+        $close              = $this->Close_On_Success? "top.parent.appformClose('appform' + dialogNumber);" : '';
+        
+        /*
+        $dialog_id          = $this->GetEqValue('dialog');
+        $idx                = $this->GetEqValue('idx');
+        $return_function    = $this->GetEqValue('return_function');
+        $return_parameters  = $this->GetEqValue('return_parameters');
+        
+        if ($return_parameters) {
+            $return_parameters = ',' . $return_parameters;
+        }
+
+        $return = '';
+        if ($dialog_id) {
+            if ($return_function) {
+                $return = "
+                if (parent.document.getElementById('appformIframe$dialog_id')) {
+                    parent.document.getElementById('appformIframe$dialog_id').contentWindow.$return_function($this->Last_Update_Id$return_parameters);
+                }";
+            } elseif($idx) {
+                $eq = Get('eq');
+                $return = "
+                if (parent.document.getElementById('appformIframe$dialog_id')) {
+                    parent.document.getElementById('appformIframe$dialog_id').contentWindow.tableSearch('SHOW','$eq','$idx');
+                }";
+
+            }
+
+        }
+        */
+        //$return
+        AddScript(
+            "top.parent.setTopFlash('Record Deleted from $table');
+            
             $close"
         );
 
@@ -688,7 +710,11 @@ class Lib_BaseClass
                 if ($this->Demo) {
                     $RESULT .= "<h3>Demo Mode &mdash; Record Not Added</h3>\n";
                 } else {
-                    $this->AddDatabaseRecord($this->Form_Array);
+                    
+                    if (!$this->Bypass_Form_Processing) {
+                        $this->AddDatabaseRecord($this->Form_Array);
+                    }
+                    
                     if (!$this->Error) {
                         $RESULT .= $this->SuccessfulAddRecord();
                         return $RESULT;
@@ -882,101 +908,105 @@ class Lib_BaseClass
 
             $this->Form_Array = $this->PostProcessFormValues($this->Form_Array);
 
-            if ($this->Unique_Fields) {
-                // check for unique fields
-                $fields = explode(',', $this->Unique_Fields);
-                foreach ($fields as $field) {
-                    $parts = explode('__', $field);
-                    if (count($parts) == 1) {
-                        $table = $this->Table;
-                        $unique_field = $field;
+            
+            if (!$this->Bypass_Form_Processing) {
+                
+                if ($this->Unique_Fields) {
+                    // check for unique fields
+                    $fields = explode(',', $this->Unique_Fields);
+                    foreach ($fields as $field) {
+                        
+                        $parts = explode('__', $field);
+                        if (count($parts) == 1) {
+                            $table          = $this->Table;
+                            $unique_field   = $field;
+                        } else {
+                            $table          = $parts[0];
+                            $unique_field   = $parts[1];
+                        }
+
+                        $qid = $this->SQL->QuoteValue($id);
+                        if (isset($this->Form_Array[$field])) {
+                            if ( !$this->SQL->IsUnique($table, $unique_field, $this->Form_Array[$field], "`$table`.`$id_field`!=$qid AND active=1")) {
+                                $var            = $this->GetFieldTitleFromAlias($field);
+                                $this->Error    = $this->Field_Titles[$var] . ' already exits!';
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if ($this->Demo) {
+                    $RESULT .= "<h3>Demo Mode &mdash; Record Not Updated</h3>\n";
+                    $RESULT .= $this->ViewRecordText($id, '', $id_field);
+                    AddFlash("Demo Mode &mdash; Record [$id] Not Updated");
+
+                } elseif (!$this->Error) {
+
+                    $joins = '';
+
+                    $tables = $this->Table;
+
+                    if ( empty($this->Span_Tables) ) {
+                        $key_values = $this->SQL->KeyValues($this->Form_Array);
                     } else {
-                        $table = $parts[0];
-                        $unique_field = $parts[1];
-                    }
-
-                    $qid = $this->SQL->QuoteValue($id);
-                    if (isset($this->Form_Array[$field])) {
-                        if ( !$this->SQL->IsUnique($table, $unique_field, $this->Form_Array[$field], "`$table`.`$id_field`!=$qid AND active=1")) {
-                            $var = $this->GetFieldTitleFromAlias($field);
-                            $this->Error = $this->Field_Titles[$var] . ' already exits!';
-                            break;
+                        $post_array = array();
+                        foreach ($this->Form_Array as $key => $value) {
+                            $key = str_replace('__', '.', $key);
+                            $post_array[$key] = $value;
                         }
-                    }
-                }
-            }
+                        $key_values = $this->SQL->KeyValues($post_array);
 
-            if ($this->Demo) {
-                $RESULT .= "<h3>Demo Mode &mdash; Record Not Updated</h3>\n";
-                $RESULT .= $this->ViewRecordText($id, '', $id_field);
-                AddFlash("Demo Mode &mdash; Record [$id] Not Updated");
-
-            } elseif (!$this->Error) {
-
-                $joins = '';
-
-                $tables = $this->Table;
-
-                if ( empty($this->Span_Tables) ) {
-                    $key_values = $this->SQL->KeyValues($this->Form_Array);
-                } else {
-                    $post_array = array();
-                    foreach ($this->Form_Array as $key => $value) {
-                        $key = str_replace('__', '.', $key);
-                        $post_array[$key] = $value;
-                    }
-                    $key_values = $this->SQL->KeyValues($post_array);
-
-                    foreach ($this->Span_Tables as $table) {
-                        $tables .= ",$table";
-                    }
-                }
-
-                try {
-                    $this->SQL->StartTransaction();  // start transaction
-
-                    // ----- get previsous values for log -----
-                    $qid = $this->SQL->QuoteValue($id);
-                    $old_record_array = $this->SQL->GetRecord($this->Table,'*', "`$this->Table`.`$id_field`=$qid", $this->Span_Joins);
-                    $change_id = $old_record_array[$this->Index_Name];
-
-                    $span_where = '';
-                    if ($this->Span_Tables) {
-                        $span_id = $old_record_array[$this->Span_Tables_Join_Field];
                         foreach ($this->Span_Tables as $table) {
-                            $span_where .= " AND `$table`.`$this->Span_Tables_Join_Field`='$span_id'";
+                            $tables .= ",$table";
                         }
                     }
 
-                    if($this->SQL->UpdateRecord($tables, $key_values, "`$this->Table`.`$id_field`=$qid$span_where", $joins)){
-                        $flash = (!empty($this->Form_Array[$this->Flash_Field]))? $this->Form_Array[$this->Flash_Field] : $id;
+                    try {
+                        $this->SQL->StartTransaction();  // start transaction
 
-                        $this->TriggerAfterUpdate($id, $id_field, $tables, $span_where, $joins);
-                        if (!$this->Error) {
-                            // ----- update log -----
-                            $new_record_array = $this->SQL->GetRecord($this->Table,'*', "`$this->Table`.`$id_field`=$qid", $this->Span_Joins);
-                            $this->UpdateChangeLog($change_id, 'UPDATE', $old_record_array, $new_record_array);
+                        // ----- get previsous values for log -----
+                        $qid = $this->SQL->QuoteValue($id);
+                        $old_record_array = $this->SQL->GetRecord($this->Table,'*', "`$this->Table`.`$id_field`=$qid", $this->Span_Joins);
+                        $change_id = $old_record_array[$this->Index_Name];
 
-                            $RESULT .= $this->SuccessfulEditRecord($flash, $id, $id_field);
+                        $span_where = '';
+                        if ($this->Span_Tables) {
+                            $span_id = $old_record_array[$this->Span_Tables_Join_Field];
+                            foreach ($this->Span_Tables as $table) {
+                                $span_where .= " AND `$table`.`$this->Span_Tables_Join_Field`='$span_id'";
+                            }
+                        }
+
+                        if($this->SQL->UpdateRecord($tables, $key_values, "`$this->Table`.`$id_field`=$qid$span_where", $joins)){
+                            $flash = (!empty($this->Form_Array[$this->Flash_Field]))? $this->Form_Array[$this->Flash_Field] : $id;
+
+                            $this->TriggerAfterUpdate($id, $id_field, $tables, $span_where, $joins);
+                            if (!$this->Error) {
+                                // ----- update log -----
+                                $new_record_array = $this->SQL->GetRecord($this->Table,'*', "`$this->Table`.`$id_field`=$qid", $this->Span_Joins);
+                                $this->UpdateChangeLog($change_id, 'UPDATE', $old_record_array, $new_record_array);
+
+                                $RESULT .= $this->SuccessfulEditRecord($flash, $id, $id_field);
+
+                            } else {
+                                $this->Error .= 'DB Trigger Write Error';
+                                throw new Exception('DB Write Error');
+                            }
 
                         } else {
-                            $this->Error .= 'DB Trigger Write Error';
+                            $this->Error .= 'DB Write Error';
                             throw new Exception('DB Write Error');
                         }
 
-                    } else {
-                        $this->Error .= 'DB Write Error';
-                        throw new Exception('DB Write Error');
+                        $this->SQL->TransactionCommit();
+
+                    } catch (Exception $e) {
+                        $this->Error = 'DB Write Error (Exception Caught)';
+                        $this->SQL->Rollback();
                     }
-
-                    $this->SQL->TransactionCommit();
-
-                } catch (Exception $e) {
-                    $this->Error = 'DB Write Error (Exception Caught)';
-                    $this->SQL->Rollback();
                 }
-            }
-
+            } // end this->Bypass_Form_Processing) check
         }
 
 
@@ -1342,26 +1372,21 @@ class Lib_BaseClass
 
                     list($sort1, $sort2, $sort3) = explode(',', $this->Default_Sort . ',,');
 
-                    $checked1  = (((Post("TABLE_ORDER{$idx}") == '') and ($field == $sort1)) or
-                                  (Post("TABLE_ORDER{$idx}") == $field))? ' checked="checked"' : '';
-                    $checked2  = (((Post("TABLE_2ORDER{$idx}") == '') and ($field == $sort2)) or
-                                  (Post("TABLE_2ORDER{$idx}") == $field))? ' checked="checked"' : '';
-                    $checked3  = (((Post("TABLE_3ORDER{$idx}") == '') and ($field == $sort3)) or
-                                  (Post("TABLE_3ORDER{$idx}") == $field))? ' checked="checked"' : '';
-                    $radio    = "<input type=\"radio\" id=\"TABLE_ORDER{$idx}_$field\" name=\"TABLE_ORDER$idx\" value=\"$field\"$checked1 />\n";
-                    $radio    .= "<input type=\"radio\" id=\"TABLE_2ORDER{$idx}_$field\" name=\"TABLE_2ORDER$idx\" value=\"$field\"$checked2 />\n";
-                    $radio    .= "<input type=\"radio\" id=\"TABLE_3ORDER{$idx}_$field\" name=\"TABLE_3ORDER$idx\" value=\"$field\"$checked3 /><br />\n";
+                    $checked1   = (((Post("TABLE_ORDER{$idx}") == '') and ($field == $sort1)) or (Post("TABLE_ORDER{$idx}") == $field))? ' checked="checked"' : '';
+                    $checked2   = (((Post("TABLE_2ORDER{$idx}") == '') and ($field == $sort2)) or (Post("TABLE_2ORDER{$idx}") == $field))? ' checked="checked"' : '';
+                    $checked3   = (((Post("TABLE_3ORDER{$idx}") == '') and ($field == $sort3)) or (Post("TABLE_3ORDER{$idx}") == $field))? ' checked="checked"' : '';
+                    
+                    $radio      = "<input type=\"radio\" class=\"TABLE_SEARCH_RADIO\" id=\"TABLE_ORDER{$idx}_$field\" name=\"TABLE_ORDER$idx\" value=\"$field\"$checked1 />\n";
+                    $radio     .= "<input type=\"radio\" class=\"TABLE_SEARCH_RADIO\" id=\"TABLE_2ORDER{$idx}_$field\" name=\"TABLE_2ORDER$idx\" value=\"$field\"$checked2 />\n";
+                    $radio     .= "<input type=\"radio\" class=\"TABLE_SEARCH_RADIO\" id=\"TABLE_3ORDER{$idx}_$field\" name=\"TABLE_3ORDER$idx\" value=\"$field\"$checked3 /><br />\n";
 
-                    $checked1  = ( ((Post("TABLE_ORDER{$idx}") == '') and ("$field DESC" == $sort1)) or
-                                  (Post("TABLE_ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
-                    $checked2  = ( ((Post("TABLE_2ORDER{$idx}") == '') and ("$field DESC" == $sort2)) or
-                                  (Post("TABLE_2ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
-                    $checked3  = ( ((Post("TABLE_3ORDER{$idx}") == '') and ("$field DESC" == $sort3)) or
-                                  (Post("TABLE_3ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
+                    $checked1   = ( ((Post("TABLE_ORDER{$idx}") == '') and ("$field DESC" == $sort1)) or (Post("TABLE_ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
+                    $checked2   = ( ((Post("TABLE_2ORDER{$idx}") == '') and ("$field DESC" == $sort2)) or (Post("TABLE_2ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
+                    $checked3   = ( ((Post("TABLE_3ORDER{$idx}") == '') and ("$field DESC" == $sort3)) or (Post("TABLE_3ORDER{$idx}") == "$field DESC") )? ' checked="checked"' : '';
 
-                    $radio   .= "<input type=\"radio\" id=\"TABLE_ORDER{$idx}_{$field}_DESC\" name=\"TABLE_ORDER$idx\" value=\"$field DESC\"$checked1 />\n";
-                    $radio   .= "<input type=\"radio\" id=\"TABLE_2ORDER{$idx}_{$field}_DESC\" name=\"TABLE_2ORDER$idx\" value=\"$field DESC\"$checked2 />\n";
-                    $radio   .= "<input type=\"radio\" id=\"TABLE_3ORDER{$idx}_{$field}_DESC\" name=\"TABLE_3ORDER$idx\" value=\"$field DESC\"$checked3 />\n";
+                    $radio     .= "<input type=\"radio\" class=\"TABLE_SEARCH_RADIO\" id=\"TABLE_ORDER{$idx}_{$field}_DESC\" name=\"TABLE_ORDER$idx\" value=\"$field DESC\"$checked1 />\n";
+                    $radio     .= "<input type=\"radio\" class=\"TABLE_SEARCH_RADIO\" id=\"TABLE_2ORDER{$idx}_{$field}_DESC\" name=\"TABLE_2ORDER$idx\" value=\"$field DESC\"$checked2 />\n";
+                    $radio     .= "<input type=\"radio\" class=\"TABLE_SEARCH_RADIO\" id=\"TABLE_3ORDER{$idx}_{$field}_DESC\" name=\"TABLE_3ORDER$idx\" value=\"$field DESC\"$checked3 />\n";
 
                     $RESULT .= "
                     <tr$row_class>
@@ -1645,13 +1670,17 @@ class Lib_BaseClass
     // ----------- function to process the row/page selection for table pagination ---------------
     public function RowSelect($num_rows, $start_row, $row_count)
     {
-        $idx = $this->Idx;
-
-        $dialog_id = Get('DIALOGID');
-        $eq = EncryptQuery("class={$this->Class_Name};idx=$this->Idx;dialog=$dialog_id;parameters={$this->Parameter_String}");
+        $idx        = $this->Idx;
+        $did        = $this->Dialog_Id;
+        $did2       = $this->GetEqValue('dialog');
+        $dialog_id  = Get('DIALOGID');
+        $eq         = EncryptQuery("class={$this->Class_Name};idx=$this->Idx;dialog=$dialog_id;parameters={$this->Parameter_String}");
 
         $RESULT = qqn("<div class=`rowselect`>
             <input type=`hidden` id=`NUMBER_ROWS$idx` name=`NUMBER_ROWS$idx` value=`$num_rows` />");
+        
+        //$RESULT .= qqn("({$did}) ({$did2}) ({$dialog_id})</br>");
+        
         if ($start_row > $num_rows) $start_row = 1;
         if (($num_rows > $row_count) or ($start_row > 1)){
             $RESULT .= qqn("
@@ -1761,12 +1790,12 @@ class Lib_BaseClass
             $dialog_id = $this->GetEqValue('dialog');
         }
 
-        $title = $this->GetTableTitle();
-
+        
         if ($this->Edit_Links) {
-            $eq = EncryptQuery("class={$this->Class_Name};id=$row_tid;idx=$this->Idx;dialog=$dialog_id;parameters={$this->Parameter_String}");
-            $edit_links = str_replace('@IDX@', $this->Idx, $this->Edit_Links);
-            return str_replace(array('@VALUE@', '@EQ@', '@TITLE@'), array($row_tid, $eq, $title), $edit_links);
+            $eq             = EncryptQuery("class={$this->Class_Name};id=$row_tid;idx=$this->Idx;dialog=$dialog_id;parameters={$this->Parameter_String}");
+            $edit_links     = str_replace('@IDX@', $this->Idx, $this->Edit_Links);
+            $title          = $this->GetTableTitle();
+            return str_replace(array('@VALUE@', '@EQ@', '@TITLE@', '@DIALOGID@'), array($row_tid, $eq, $title, $dialog_id), $edit_links);
         } else {
             return '';
         }
@@ -1804,12 +1833,12 @@ class Lib_BaseClass
     
     public function GetTableHeading($colcount)
     {
-        $export = ($this->Show_Export)? $this->GetExportBlock() : '';
+        $export         = ($this->Show_Export)? $this->GetExportBlock() : '';
+        $filter_title   = ($this->TableHeading_ShowTitle) ? 'Search Results : ' . $this->GetTableTitle() : '';
         $RESULT = '
             <tr class="TABLE_TITLE">
                 <td colspan="'. $colcount. '">
-                ' . $export . '
-                    Search Results : ' . $this->GetTableTitle() . '
+                ' . $export . $filter_title . '
                 <div id="TABLE_FILTER_DIV">
                 Filter <input id="TABLE_FILTER" type="text" value="" cols="20" onkeyup="runFilter();" />
                 </div>
@@ -2231,6 +2260,13 @@ class Lib_BaseClass
                 return;
             } else {
                 echo $this->OutputTable($table_array, $num_rows, $start_row, $row_count, 1, $primary_sort_order, $primary_sort_direction);
+                if ($this->Show_Table_Post_Process) {
+                    $header_fields  = array_keys($table_array[0]);
+                    $colcount       = count($header_fields) + $this->Edit_Links_Count;
+                    $content        = $this->TablePostProcess($table_array);
+                    $subarea        = "<tr><td colspan='{$colcount}'>{$content}</td></tr>";
+                    echo $subarea;
+                }
                 $count = count($table_array[0]) + $this->Edit_Links_Count + 1;
             }
         } else {
@@ -2245,7 +2281,16 @@ class Lib_BaseClass
 
         $this->Db_Query_Display = "<tr><td colspan=\"$count\">" . $this->SQL->WriteDbQueryText() . '</td></tr>';
     }
-
+    
+    public function TablePostProcess($search_array)
+    {
+        # FUNCTION :: Extendable function to re-process the table after its been output
+        
+        $output = "";
+        return $output;
+        
+    }
+    
     // ----------- function to view a record, returing a string  ---------------
     public function ViewRecordText($id, $field_list='', $id_field='')
     {

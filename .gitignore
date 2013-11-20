@@ -7,6 +7,7 @@
 .metadata
 bin/
 tmp/
+web/content/_classes/
 *.tmp
 *.bak
 *.swp

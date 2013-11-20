@@ -6,7 +6,7 @@ class Lib_Pdo
 {
     public $Pdo;
     public $Db_Query                        = '';
-    public $Db_Want_Query                   = true;
+    public $Db_Want_Query                   = false;
     public $Db_Max_Db_Query_Length          = 1000000;
     public $Db_Start_Time                   = 0;
     public $Db_Show_Trace                   = false;
@@ -47,12 +47,13 @@ class Lib_Pdo
             'Created By'    => 'Michael Petrovich',
             'Created Date'  => '2010-10-01',
             'Updated By'    => 'Richard Witherspoon',
-            'Updated Date'  => '2013-05-01',
+            'Updated Date'  => '2013-11-18',
             'Filename'      => $this->Classname,
-            'Version'       => '2.0',
+            'Version'       => '2.1',
             'Description'   => 'PDO library for database connection',
             'Update Log'    => array(
                 '2013-05-01_2.0'    => "Minor modifications",
+                '2013-11-18_2.1'    => "Modified SetDbQuery() so it will always store the query -- needed to make export work"
             ),
         );
     }
@@ -129,7 +130,9 @@ MTL;
         static $max_reached = false;
         static $trace_count = 0;
 
-        if (!$function or !$this->Db_Want_Query or $max_reached) return;
+        //if (!$function or (!$this->Db_Want_Query && !Session('WANT_DB_QUERIES')) or $max_reached) return;
+        if (!$function or $max_reached) return;
+
 
         $this->Db_Last_Query = $query;
         $query = str_replace(',', ', ', $query);
